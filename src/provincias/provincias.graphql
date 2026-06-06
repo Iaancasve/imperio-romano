@@ -1,0 +1,20 @@
+type Provincia {
+  id: Int!
+  nombre: String!
+  lealtad: Int!
+  prosperidadEconomica: Int!
+  impuestos: Int!
+  conflictosInternos: Int!
+  riesgoRebelion: Int!
+}
+
+type Query {
+  provincias: [Provincia!]!
+  provincia(id: Int!): Provincia
+}
+
+type Mutation {
+  createProvincia(nombre: String!, lealtad: Int!, prosperidadEconomica: Int!, impuestos: Int!, conflictosInternos: Int!, riesgoRebelion: Int!): Provincia!
+  updateProvincia(id: Int!, nombre: String, lealtad: Int, prosperidadEconomica: Int, impuestos: Int, conflictosInternos: Int, riesgoRebelion: Int): Provincia!
+  removeProvincia(id: Int!): Provincia!
+}
