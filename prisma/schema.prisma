@@ -22,7 +22,7 @@ datasource db {
 model Usuario {
   id         Int    @id @default(autoincrement())
   nombre     String @db.VarChar(50)
-  contrasena String @db.VarChar(50)
+  contrasena String 
 
   rolesAsignados RolAsignado[]
 }

@@ -1,5 +1,10 @@
+const bcrypt = require('bcrypt'); 
+
 async function seedUsuarios(prisma) {
   console.log('🌱 Seeding usuarios...');
+  
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash('senado123', saltRounds);
   
   let admin = await prisma.usuario.findFirst({ where: { nombre: 'Julio Cesar' } });
   
@@ -7,7 +12,7 @@ async function seedUsuarios(prisma) {
     admin = await prisma.usuario.create({
       data: {
         nombre: 'Julio Cesar',
-        contrasena: 'senado123',
+        contrasena: passwordHash, 
       }
     });
   }
