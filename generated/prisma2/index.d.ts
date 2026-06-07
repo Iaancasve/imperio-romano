@@ -48,6 +48,11 @@ export type Gobernador = $Result.DefaultSelection<Prisma.$GobernadorPayload>
  * 
  */
 export type Informe = $Result.DefaultSelection<Prisma.$InformePayload>
+/**
+ * Model Rebelion
+ * 
+ */
+export type Rebelion = $Result.DefaultSelection<Prisma.$RebelionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -239,6 +244,16 @@ export class PrismaClient<
     * ```
     */
   get informe(): Prisma.InformeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rebelion`: Exposes CRUD operations for the **Rebelion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rebelions
+    * const rebelions = await prisma.rebelion.findMany()
+    * ```
+    */
+  get rebelion(): Prisma.RebelionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -679,7 +694,8 @@ export namespace Prisma {
     Provincia: 'Provincia',
     Legion: 'Legion',
     Gobernador: 'Gobernador',
-    Informe: 'Informe'
+    Informe: 'Informe',
+    Rebelion: 'Rebelion'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -695,7 +711,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "rol" | "rolAsignado" | "provincia" | "legion" | "gobernador" | "informe"
+      modelProps: "usuario" | "rol" | "rolAsignado" | "provincia" | "legion" | "gobernador" | "informe" | "rebelion"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1217,6 +1233,80 @@ export namespace Prisma {
           }
         }
       }
+      Rebelion: {
+        payload: Prisma.$RebelionPayload<ExtArgs>
+        fields: Prisma.RebelionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RebelionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RebelionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          findFirst: {
+            args: Prisma.RebelionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RebelionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          findMany: {
+            args: Prisma.RebelionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>[]
+          }
+          create: {
+            args: Prisma.RebelionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          createMany: {
+            args: Prisma.RebelionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RebelionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>[]
+          }
+          delete: {
+            args: Prisma.RebelionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          update: {
+            args: Prisma.RebelionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          deleteMany: {
+            args: Prisma.RebelionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RebelionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RebelionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>[]
+          }
+          upsert: {
+            args: Prisma.RebelionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RebelionPayload>
+          }
+          aggregate: {
+            args: Prisma.RebelionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRebelion>
+          }
+          groupBy: {
+            args: Prisma.RebelionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RebelionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RebelionCountArgs<ExtArgs>
+            result: $Utils.Optional<RebelionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1332,6 +1422,7 @@ export namespace Prisma {
     legion?: LegionOmit
     gobernador?: GobernadorOmit
     informe?: InformeOmit
+    rebelion?: RebelionOmit
   }
 
   /* Types for Logging */
@@ -9277,6 +9368,1057 @@ export namespace Prisma {
 
 
   /**
+   * Model Rebelion
+   */
+
+  export type AggregateRebelion = {
+    _count: RebelionCountAggregateOutputType | null
+    _avg: RebelionAvgAggregateOutputType | null
+    _sum: RebelionSumAggregateOutputType | null
+    _min: RebelionMinAggregateOutputType | null
+    _max: RebelionMaxAggregateOutputType | null
+  }
+
+  export type RebelionAvgAggregateOutputType = {
+    id: number | null
+    nivelRiesgo: number | null
+  }
+
+  export type RebelionSumAggregateOutputType = {
+    id: number | null
+    nivelRiesgo: number | null
+  }
+
+  export type RebelionMinAggregateOutputType = {
+    id: number | null
+    provincia: string | null
+    nivelRiesgo: number | null
+    fecha: Date | null
+    gobernador: string | null
+    estado: string | null
+  }
+
+  export type RebelionMaxAggregateOutputType = {
+    id: number | null
+    provincia: string | null
+    nivelRiesgo: number | null
+    fecha: Date | null
+    gobernador: string | null
+    estado: string | null
+  }
+
+  export type RebelionCountAggregateOutputType = {
+    id: number
+    provincia: number
+    nivelRiesgo: number
+    fecha: number
+    gobernador: number
+    estado: number
+    _all: number
+  }
+
+
+  export type RebelionAvgAggregateInputType = {
+    id?: true
+    nivelRiesgo?: true
+  }
+
+  export type RebelionSumAggregateInputType = {
+    id?: true
+    nivelRiesgo?: true
+  }
+
+  export type RebelionMinAggregateInputType = {
+    id?: true
+    provincia?: true
+    nivelRiesgo?: true
+    fecha?: true
+    gobernador?: true
+    estado?: true
+  }
+
+  export type RebelionMaxAggregateInputType = {
+    id?: true
+    provincia?: true
+    nivelRiesgo?: true
+    fecha?: true
+    gobernador?: true
+    estado?: true
+  }
+
+  export type RebelionCountAggregateInputType = {
+    id?: true
+    provincia?: true
+    nivelRiesgo?: true
+    fecha?: true
+    gobernador?: true
+    estado?: true
+    _all?: true
+  }
+
+  export type RebelionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rebelion to aggregate.
+     */
+    where?: RebelionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rebelions to fetch.
+     */
+    orderBy?: RebelionOrderByWithRelationInput | RebelionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RebelionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rebelions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rebelions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Rebelions
+    **/
+    _count?: true | RebelionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RebelionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RebelionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RebelionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RebelionMaxAggregateInputType
+  }
+
+  export type GetRebelionAggregateType<T extends RebelionAggregateArgs> = {
+        [P in keyof T & keyof AggregateRebelion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRebelion[P]>
+      : GetScalarType<T[P], AggregateRebelion[P]>
+  }
+
+
+
+
+  export type RebelionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RebelionWhereInput
+    orderBy?: RebelionOrderByWithAggregationInput | RebelionOrderByWithAggregationInput[]
+    by: RebelionScalarFieldEnum[] | RebelionScalarFieldEnum
+    having?: RebelionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RebelionCountAggregateInputType | true
+    _avg?: RebelionAvgAggregateInputType
+    _sum?: RebelionSumAggregateInputType
+    _min?: RebelionMinAggregateInputType
+    _max?: RebelionMaxAggregateInputType
+  }
+
+  export type RebelionGroupByOutputType = {
+    id: number
+    provincia: string
+    nivelRiesgo: number
+    fecha: Date
+    gobernador: string
+    estado: string
+    _count: RebelionCountAggregateOutputType | null
+    _avg: RebelionAvgAggregateOutputType | null
+    _sum: RebelionSumAggregateOutputType | null
+    _min: RebelionMinAggregateOutputType | null
+    _max: RebelionMaxAggregateOutputType | null
+  }
+
+  type GetRebelionGroupByPayload<T extends RebelionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RebelionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RebelionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RebelionGroupByOutputType[P]>
+            : GetScalarType<T[P], RebelionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RebelionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    nivelRiesgo?: boolean
+    fecha?: boolean
+    gobernador?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["rebelion"]>
+
+  export type RebelionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    nivelRiesgo?: boolean
+    fecha?: boolean
+    gobernador?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["rebelion"]>
+
+  export type RebelionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    nivelRiesgo?: boolean
+    fecha?: boolean
+    gobernador?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["rebelion"]>
+
+  export type RebelionSelectScalar = {
+    id?: boolean
+    provincia?: boolean
+    nivelRiesgo?: boolean
+    fecha?: boolean
+    gobernador?: boolean
+    estado?: boolean
+  }
+
+  export type RebelionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provincia" | "nivelRiesgo" | "fecha" | "gobernador" | "estado", ExtArgs["result"]["rebelion"]>
+
+  export type $RebelionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rebelion"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      provincia: string
+      nivelRiesgo: number
+      fecha: Date
+      gobernador: string
+      estado: string
+    }, ExtArgs["result"]["rebelion"]>
+    composites: {}
+  }
+
+  type RebelionGetPayload<S extends boolean | null | undefined | RebelionDefaultArgs> = $Result.GetResult<Prisma.$RebelionPayload, S>
+
+  type RebelionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RebelionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RebelionCountAggregateInputType | true
+    }
+
+  export interface RebelionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rebelion'], meta: { name: 'Rebelion' } }
+    /**
+     * Find zero or one Rebelion that matches the filter.
+     * @param {RebelionFindUniqueArgs} args - Arguments to find a Rebelion
+     * @example
+     * // Get one Rebelion
+     * const rebelion = await prisma.rebelion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RebelionFindUniqueArgs>(args: SelectSubset<T, RebelionFindUniqueArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rebelion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RebelionFindUniqueOrThrowArgs} args - Arguments to find a Rebelion
+     * @example
+     * // Get one Rebelion
+     * const rebelion = await prisma.rebelion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RebelionFindUniqueOrThrowArgs>(args: SelectSubset<T, RebelionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rebelion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionFindFirstArgs} args - Arguments to find a Rebelion
+     * @example
+     * // Get one Rebelion
+     * const rebelion = await prisma.rebelion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RebelionFindFirstArgs>(args?: SelectSubset<T, RebelionFindFirstArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rebelion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionFindFirstOrThrowArgs} args - Arguments to find a Rebelion
+     * @example
+     * // Get one Rebelion
+     * const rebelion = await prisma.rebelion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RebelionFindFirstOrThrowArgs>(args?: SelectSubset<T, RebelionFindFirstOrThrowArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Rebelions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rebelions
+     * const rebelions = await prisma.rebelion.findMany()
+     * 
+     * // Get first 10 Rebelions
+     * const rebelions = await prisma.rebelion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rebelionWithIdOnly = await prisma.rebelion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RebelionFindManyArgs>(args?: SelectSubset<T, RebelionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rebelion.
+     * @param {RebelionCreateArgs} args - Arguments to create a Rebelion.
+     * @example
+     * // Create one Rebelion
+     * const Rebelion = await prisma.rebelion.create({
+     *   data: {
+     *     // ... data to create a Rebelion
+     *   }
+     * })
+     * 
+     */
+    create<T extends RebelionCreateArgs>(args: SelectSubset<T, RebelionCreateArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Rebelions.
+     * @param {RebelionCreateManyArgs} args - Arguments to create many Rebelions.
+     * @example
+     * // Create many Rebelions
+     * const rebelion = await prisma.rebelion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RebelionCreateManyArgs>(args?: SelectSubset<T, RebelionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Rebelions and returns the data saved in the database.
+     * @param {RebelionCreateManyAndReturnArgs} args - Arguments to create many Rebelions.
+     * @example
+     * // Create many Rebelions
+     * const rebelion = await prisma.rebelion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Rebelions and only return the `id`
+     * const rebelionWithIdOnly = await prisma.rebelion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RebelionCreateManyAndReturnArgs>(args?: SelectSubset<T, RebelionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Rebelion.
+     * @param {RebelionDeleteArgs} args - Arguments to delete one Rebelion.
+     * @example
+     * // Delete one Rebelion
+     * const Rebelion = await prisma.rebelion.delete({
+     *   where: {
+     *     // ... filter to delete one Rebelion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RebelionDeleteArgs>(args: SelectSubset<T, RebelionDeleteArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rebelion.
+     * @param {RebelionUpdateArgs} args - Arguments to update one Rebelion.
+     * @example
+     * // Update one Rebelion
+     * const rebelion = await prisma.rebelion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RebelionUpdateArgs>(args: SelectSubset<T, RebelionUpdateArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Rebelions.
+     * @param {RebelionDeleteManyArgs} args - Arguments to filter Rebelions to delete.
+     * @example
+     * // Delete a few Rebelions
+     * const { count } = await prisma.rebelion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RebelionDeleteManyArgs>(args?: SelectSubset<T, RebelionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rebelions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rebelions
+     * const rebelion = await prisma.rebelion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RebelionUpdateManyArgs>(args: SelectSubset<T, RebelionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rebelions and returns the data updated in the database.
+     * @param {RebelionUpdateManyAndReturnArgs} args - Arguments to update many Rebelions.
+     * @example
+     * // Update many Rebelions
+     * const rebelion = await prisma.rebelion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Rebelions and only return the `id`
+     * const rebelionWithIdOnly = await prisma.rebelion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RebelionUpdateManyAndReturnArgs>(args: SelectSubset<T, RebelionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Rebelion.
+     * @param {RebelionUpsertArgs} args - Arguments to update or create a Rebelion.
+     * @example
+     * // Update or create a Rebelion
+     * const rebelion = await prisma.rebelion.upsert({
+     *   create: {
+     *     // ... data to create a Rebelion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rebelion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RebelionUpsertArgs>(args: SelectSubset<T, RebelionUpsertArgs<ExtArgs>>): Prisma__RebelionClient<$Result.GetResult<Prisma.$RebelionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Rebelions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionCountArgs} args - Arguments to filter Rebelions to count.
+     * @example
+     * // Count the number of Rebelions
+     * const count = await prisma.rebelion.count({
+     *   where: {
+     *     // ... the filter for the Rebelions we want to count
+     *   }
+     * })
+    **/
+    count<T extends RebelionCountArgs>(
+      args?: Subset<T, RebelionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RebelionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rebelion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RebelionAggregateArgs>(args: Subset<T, RebelionAggregateArgs>): Prisma.PrismaPromise<GetRebelionAggregateType<T>>
+
+    /**
+     * Group by Rebelion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RebelionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RebelionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RebelionGroupByArgs['orderBy'] }
+        : { orderBy?: RebelionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RebelionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRebelionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rebelion model
+   */
+  readonly fields: RebelionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rebelion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RebelionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rebelion model
+   */
+  interface RebelionFieldRefs {
+    readonly id: FieldRef<"Rebelion", 'Int'>
+    readonly provincia: FieldRef<"Rebelion", 'String'>
+    readonly nivelRiesgo: FieldRef<"Rebelion", 'Float'>
+    readonly fecha: FieldRef<"Rebelion", 'DateTime'>
+    readonly gobernador: FieldRef<"Rebelion", 'String'>
+    readonly estado: FieldRef<"Rebelion", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rebelion findUnique
+   */
+  export type RebelionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter, which Rebelion to fetch.
+     */
+    where: RebelionWhereUniqueInput
+  }
+
+  /**
+   * Rebelion findUniqueOrThrow
+   */
+  export type RebelionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter, which Rebelion to fetch.
+     */
+    where: RebelionWhereUniqueInput
+  }
+
+  /**
+   * Rebelion findFirst
+   */
+  export type RebelionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter, which Rebelion to fetch.
+     */
+    where?: RebelionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rebelions to fetch.
+     */
+    orderBy?: RebelionOrderByWithRelationInput | RebelionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rebelions.
+     */
+    cursor?: RebelionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rebelions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rebelions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rebelions.
+     */
+    distinct?: RebelionScalarFieldEnum | RebelionScalarFieldEnum[]
+  }
+
+  /**
+   * Rebelion findFirstOrThrow
+   */
+  export type RebelionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter, which Rebelion to fetch.
+     */
+    where?: RebelionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rebelions to fetch.
+     */
+    orderBy?: RebelionOrderByWithRelationInput | RebelionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rebelions.
+     */
+    cursor?: RebelionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rebelions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rebelions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rebelions.
+     */
+    distinct?: RebelionScalarFieldEnum | RebelionScalarFieldEnum[]
+  }
+
+  /**
+   * Rebelion findMany
+   */
+  export type RebelionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter, which Rebelions to fetch.
+     */
+    where?: RebelionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rebelions to fetch.
+     */
+    orderBy?: RebelionOrderByWithRelationInput | RebelionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Rebelions.
+     */
+    cursor?: RebelionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rebelions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rebelions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rebelions.
+     */
+    distinct?: RebelionScalarFieldEnum | RebelionScalarFieldEnum[]
+  }
+
+  /**
+   * Rebelion create
+   */
+  export type RebelionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Rebelion.
+     */
+    data: XOR<RebelionCreateInput, RebelionUncheckedCreateInput>
+  }
+
+  /**
+   * Rebelion createMany
+   */
+  export type RebelionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Rebelions.
+     */
+    data: RebelionCreateManyInput | RebelionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Rebelion createManyAndReturn
+   */
+  export type RebelionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Rebelions.
+     */
+    data: RebelionCreateManyInput | RebelionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Rebelion update
+   */
+  export type RebelionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Rebelion.
+     */
+    data: XOR<RebelionUpdateInput, RebelionUncheckedUpdateInput>
+    /**
+     * Choose, which Rebelion to update.
+     */
+    where: RebelionWhereUniqueInput
+  }
+
+  /**
+   * Rebelion updateMany
+   */
+  export type RebelionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Rebelions.
+     */
+    data: XOR<RebelionUpdateManyMutationInput, RebelionUncheckedUpdateManyInput>
+    /**
+     * Filter which Rebelions to update
+     */
+    where?: RebelionWhereInput
+    /**
+     * Limit how many Rebelions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rebelion updateManyAndReturn
+   */
+  export type RebelionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * The data used to update Rebelions.
+     */
+    data: XOR<RebelionUpdateManyMutationInput, RebelionUncheckedUpdateManyInput>
+    /**
+     * Filter which Rebelions to update
+     */
+    where?: RebelionWhereInput
+    /**
+     * Limit how many Rebelions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rebelion upsert
+   */
+  export type RebelionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Rebelion to update in case it exists.
+     */
+    where: RebelionWhereUniqueInput
+    /**
+     * In case the Rebelion found by the `where` argument doesn't exist, create a new Rebelion with this data.
+     */
+    create: XOR<RebelionCreateInput, RebelionUncheckedCreateInput>
+    /**
+     * In case the Rebelion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RebelionUpdateInput, RebelionUncheckedUpdateInput>
+  }
+
+  /**
+   * Rebelion delete
+   */
+  export type RebelionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+    /**
+     * Filter which Rebelion to delete.
+     */
+    where: RebelionWhereUniqueInput
+  }
+
+  /**
+   * Rebelion deleteMany
+   */
+  export type RebelionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rebelions to delete
+     */
+    where?: RebelionWhereInput
+    /**
+     * Limit how many Rebelions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rebelion without action
+   */
+  export type RebelionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rebelion
+     */
+    select?: RebelionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rebelion
+     */
+    omit?: RebelionOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9364,6 +10506,18 @@ export namespace Prisma {
   };
 
   export type InformeScalarFieldEnum = (typeof InformeScalarFieldEnum)[keyof typeof InformeScalarFieldEnum]
+
+
+  export const RebelionScalarFieldEnum: {
+    id: 'id',
+    provincia: 'provincia',
+    nivelRiesgo: 'nivelRiesgo',
+    fecha: 'fecha',
+    gobernador: 'gobernador',
+    estado: 'estado'
+  };
+
+  export type RebelionScalarFieldEnum = (typeof RebelionScalarFieldEnum)[keyof typeof RebelionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9852,6 +11006,65 @@ export namespace Prisma {
     fecha?: DateTimeWithAggregatesFilter<"Informe"> | Date | string
   }
 
+  export type RebelionWhereInput = {
+    AND?: RebelionWhereInput | RebelionWhereInput[]
+    OR?: RebelionWhereInput[]
+    NOT?: RebelionWhereInput | RebelionWhereInput[]
+    id?: IntFilter<"Rebelion"> | number
+    provincia?: StringFilter<"Rebelion"> | string
+    nivelRiesgo?: FloatFilter<"Rebelion"> | number
+    fecha?: DateTimeFilter<"Rebelion"> | Date | string
+    gobernador?: StringFilter<"Rebelion"> | string
+    estado?: StringFilter<"Rebelion"> | string
+  }
+
+  export type RebelionOrderByWithRelationInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    nivelRiesgo?: SortOrder
+    fecha?: SortOrder
+    gobernador?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type RebelionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: RebelionWhereInput | RebelionWhereInput[]
+    OR?: RebelionWhereInput[]
+    NOT?: RebelionWhereInput | RebelionWhereInput[]
+    provincia?: StringFilter<"Rebelion"> | string
+    nivelRiesgo?: FloatFilter<"Rebelion"> | number
+    fecha?: DateTimeFilter<"Rebelion"> | Date | string
+    gobernador?: StringFilter<"Rebelion"> | string
+    estado?: StringFilter<"Rebelion"> | string
+  }, "id">
+
+  export type RebelionOrderByWithAggregationInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    nivelRiesgo?: SortOrder
+    fecha?: SortOrder
+    gobernador?: SortOrder
+    estado?: SortOrder
+    _count?: RebelionCountOrderByAggregateInput
+    _avg?: RebelionAvgOrderByAggregateInput
+    _max?: RebelionMaxOrderByAggregateInput
+    _min?: RebelionMinOrderByAggregateInput
+    _sum?: RebelionSumOrderByAggregateInput
+  }
+
+  export type RebelionScalarWhereWithAggregatesInput = {
+    AND?: RebelionScalarWhereWithAggregatesInput | RebelionScalarWhereWithAggregatesInput[]
+    OR?: RebelionScalarWhereWithAggregatesInput[]
+    NOT?: RebelionScalarWhereWithAggregatesInput | RebelionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Rebelion"> | number
+    provincia?: StringWithAggregatesFilter<"Rebelion"> | string
+    nivelRiesgo?: FloatWithAggregatesFilter<"Rebelion"> | number
+    fecha?: DateTimeWithAggregatesFilter<"Rebelion"> | Date | string
+    gobernador?: StringWithAggregatesFilter<"Rebelion"> | string
+    estado?: StringWithAggregatesFilter<"Rebelion"> | string
+  }
+
   export type UsuarioCreateInput = {
     nombre: string
     contrasena: string
@@ -10227,6 +11440,66 @@ export namespace Prisma {
     gobernador?: StringFieldUpdateOperationsInput | string
     recaudacionFinal?: StringFieldUpdateOperationsInput | string
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RebelionCreateInput = {
+    provincia: string
+    nivelRiesgo: number
+    fecha?: Date | string
+    gobernador: string
+    estado: string
+  }
+
+  export type RebelionUncheckedCreateInput = {
+    id?: number
+    provincia: string
+    nivelRiesgo: number
+    fecha?: Date | string
+    gobernador: string
+    estado: string
+  }
+
+  export type RebelionUpdateInput = {
+    provincia?: StringFieldUpdateOperationsInput | string
+    nivelRiesgo?: FloatFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RebelionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provincia?: StringFieldUpdateOperationsInput | string
+    nivelRiesgo?: FloatFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RebelionCreateManyInput = {
+    id?: number
+    provincia: string
+    nivelRiesgo: number
+    fecha?: Date | string
+    gobernador: string
+    estado: string
+  }
+
+  export type RebelionUpdateManyMutationInput = {
+    provincia?: StringFieldUpdateOperationsInput | string
+    nivelRiesgo?: FloatFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RebelionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provincia?: StringFieldUpdateOperationsInput | string
+    nivelRiesgo?: FloatFieldUpdateOperationsInput | number
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10644,6 +11917,70 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type RebelionCountOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    nivelRiesgo?: SortOrder
+    fecha?: SortOrder
+    gobernador?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type RebelionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    nivelRiesgo?: SortOrder
+  }
+
+  export type RebelionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    nivelRiesgo?: SortOrder
+    fecha?: SortOrder
+    gobernador?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type RebelionMinOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    nivelRiesgo?: SortOrder
+    fecha?: SortOrder
+    gobernador?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type RebelionSumOrderByAggregateInput = {
+    id?: SortOrder
+    nivelRiesgo?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type RolAsignadoCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<RolAsignadoCreateWithoutUsuarioInput, RolAsignadoUncheckedCreateWithoutUsuarioInput> | RolAsignadoCreateWithoutUsuarioInput[] | RolAsignadoUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: RolAsignadoCreateOrConnectWithoutUsuarioInput | RolAsignadoCreateOrConnectWithoutUsuarioInput[]
@@ -10886,6 +12223,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11016,6 +12361,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type RolAsignadoCreateWithoutUsuarioInput = {

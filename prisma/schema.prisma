@@ -89,3 +89,12 @@ model Informe {
   recaudacionFinal String
   fecha            DateTime
 }
+
+model Rebelion {
+  id               Int      @id @default(autoincrement())
+  provincia        String
+  nivelRiesgo      Float    
+  fecha            DateTime @default(now())
+  gobernador       String
+  estado           String   // "Detectada" "Sofocada" "En curso"
+}
