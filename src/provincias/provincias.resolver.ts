@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt.strategy/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { Roles } from '../auth/roles/roles.decorator';
 
+
 @Resolver('Provincia')
 export class ProvinciasResolver {
   constructor(private readonly provinciasService: ProvinciasService) {}
