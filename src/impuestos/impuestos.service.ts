@@ -25,19 +25,26 @@ export class ImpuestosService {
     const prosperidad = provincia.prosperidadEconomica ?? 0; // Cada punto de prosperidad aumenta un 1%
     
     // Accedemos a la corrupción a través del gobernador asignado
-    const corrupcion = provincia.gobernador?.nivelCorrupcion ?? 0; // Si no hay gobernador, asumimos corrupcion 0
+    const corrupcion = provincia.gobernador?.nivelCorrupcion ?? 0; // Si no hay gobernador, la corrupcion es 0
     const conflictos = provincia.conflictosInternos ?? 0; // Cada conflicto reduce un 10%
 
     // Algoritmo:
     // La prosperidad aumenta (1 + p/100)
     // La corrupción reduce (1 - c/100)
     // Los conflictos reducen (1 - conf * 0.1)
-    const total = baseRecaudacion * (1 + (prosperidad / 100)) * (1 - (corrupcion / 100)) * (1 - (conflictos * 0.1));
+    const factorProsperidad = 1 + (prosperidad / 100);
+    const factorCorrupcion = Math.max(0, 1 - (corrupcion / 100));
+    const factorConflictos = Math.max(0.1, 1 - (conflictos * 0.02)); // Cada conflicto reduce un 2%, con un mínimo del 10% de reducción
+
+    // Calculamos el total y aseguramos un mínimo de recaudación del 10% de la base
+    const recaudacionBaseMinima = baseRecaudacion * 0.1;
+    const total = baseRecaudacion * factorProsperidad * factorCorrupcion * factorConflictos;
+    const recaudacionFinal = Math.max(recaudacionBaseMinima, total);
 
     const informeData = {
       provincia: provincia.nombre,
       gobernador: provincia.gobernador?.nombre ?? 'Sin gobernador',
-      recaudacionFinal: total.toFixed(2),
+      recaudacionFinal: recaudacionFinal.toFixed(2),
       fecha: new Date()
     };
 
@@ -45,7 +52,7 @@ export class ImpuestosService {
     await this.prisma.informe.create({ data: informeData });
 
     // Guardado en MongoDB
-    await new this.informeModel(informeData).save();
+    await new this.informeModel({ ...informeData, tipoSimulacion: 'Impuestos' }).save();
 
     return informeData;
   }
