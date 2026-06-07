@@ -3,12 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Informe } from '../informes/schemas/informe.schema';
+import { WebsocketsService } from '../websockets/websockets.service';
 
 @Injectable()
 export class ImpuestosService {
   constructor(
     private prisma: PrismaService,
-    @InjectModel(Informe.name) private informeModel: Model<Informe>
+    @InjectModel(Informe.name) private informeModel: Model<Informe>,
+    private readonly websocketsService: WebsocketsService
   ) {}
 
   async calcularRecaudacion(provinciaId: number) {
@@ -53,6 +55,9 @@ export class ImpuestosService {
 
     // Guardado en MongoDB
     await new this.informeModel({ ...informeData, tipoSimulacion: 'Impuestos' }).save();
+
+    
+    this.websocketsService.notificarSenado(informeData);
 
     return informeData;
   }
