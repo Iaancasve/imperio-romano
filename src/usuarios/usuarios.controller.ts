@@ -3,6 +3,8 @@ import { UsuariosService } from './usuarios.service';
 import { JwtAuthGuard } from '../auth/jwt.strategy/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { Roles } from '../auth/roles/roles.decorator';
+import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 
 @Controller('usuarios')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -11,7 +13,9 @@ export class UsuariosController {
 
   @Post()
   @Roles('Senado')
-  create(@Body() body: any) { return this.usuariosService.create(body); }
+  create(@Body() createUsuarioDto: CreateUsuarioDto) {
+  return this.usuariosService.create(createUsuarioDto);
+}
 
   @Get()
   @Roles('Senado')
@@ -21,9 +25,11 @@ export class UsuariosController {
   @Roles('Senado')
   findOne(@Param('id') id: string) { return this.usuariosService.findOne(+id); }
 
-  @Patch(':id')
-  @Roles('Senado')
-  update(@Param('id') id: string, @Body() body: any) { return this.usuariosService.update(+id, body); }
+ @Patch(':id')
+ @Roles('Senado')
+ update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    return this.usuariosService.update(+id, updateUsuarioDto);
+  }
 
   @Delete(':id')
   @Roles('Senado')

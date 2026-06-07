@@ -2,9 +2,11 @@ import { IsString, MinLength } from 'class-validator';
 
 export class CreateUsuarioDto {
   @IsString()
-  nombre!: string; 
+  nombre!: string;
 
   @IsString()
-  @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
+  @MinLength(6)
   contrasena!: string;
+  
+  rolId!: number; 
 }
