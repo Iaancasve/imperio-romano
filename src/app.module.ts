@@ -9,6 +9,7 @@ import { InformesModule } from './informes/informe.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ImpuestosModule } from './impuestos/impuestos.module';
+import { RebelionesModule } from './rebeliones/rebeliones.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ImpuestosModule } from './impuestos/impuestos.module';
     AuthModule,
     UsuariosModule,
     ImpuestosModule,
+    RebelionesModule,
     MongooseModule.forRoot(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
