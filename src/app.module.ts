@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ProvinciasModule } from './provincias/provincias.module';
 import { InformesModule } from './informes/informe.module';
 import { AuthModule } from './auth/auth.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
     ProvinciasModule,
     InformesModule,
     AuthModule,
+    UsuariosModule,
     MongooseModule.forRoot(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
