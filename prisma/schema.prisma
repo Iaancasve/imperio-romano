@@ -52,10 +52,16 @@ model Provincia {
   prosperidadEconomica Int
   impuestos            Int
   conflictosInternos   Int
-  riesgoRebelion       Int
+  riesgoRebelion       Int?
 
   legiones   Legion[]
   gobernador Gobernador?
+}
+
+enum EstadoLegion {
+  ACTIVA
+  CAMPANA
+  DESCANSO
 }
 
 model Legion {
@@ -64,7 +70,7 @@ model Legion {
   numeroSoldados Int
   experiencia    Int
   moral          Int
-  estado         String @db.VarChar(20)
+  estado         EstadoLegion @default(ACTIVA)
 
   provinciaId Int?
   provincia   Provincia? @relation(fields: [provinciaId], references: [id])

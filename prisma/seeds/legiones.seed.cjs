@@ -5,9 +5,23 @@ async function seedLegiones(prisma) {
 
    await prisma.legion.createMany({
      data: [
-       { nombre: 'Legio IX Hispana', numeroSoldados: 5000, experiencia: 8, moral: 90, estado: 'activa', provinciaId: hispania?.id },
-       { nombre: 'Legio VI Ferrata', numeroSoldados: 4800, experiencia: 7, moral: 85, estado: 'campaña', provinciaId: galia?.id },
-     ],
+  {
+    nombre: "Legio IX Hispana",
+    numeroSoldados: 5000,
+    experiencia: 8,
+    moral: 90,
+    estado: "ACTIVA", 
+    provinciaId: 1
+  },
+  {
+    nombre: "Legio VI Ferrata",
+    numeroSoldados: 4800,
+    experiencia: 7,
+    moral: 85,
+    estado: "CAMPANA", 
+    provinciaId: 2
+  }
+],
      skipDuplicates: true,
    });
    console.log('✅ Legiones seeded');

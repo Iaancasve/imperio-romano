@@ -55,6 +55,24 @@ export type Informe = $Result.DefaultSelection<Prisma.$InformePayload>
 export type Rebelion = $Result.DefaultSelection<Prisma.$RebelionPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const EstadoLegion: {
+  ACTIVA: 'ACTIVA',
+  CAMPANA: 'CAMPANA',
+  DESCANSO: 'DESCANSO'
+};
+
+export type EstadoLegion = (typeof EstadoLegion)[keyof typeof EstadoLegion]
+
+}
+
+export type EstadoLegion = $Enums.EstadoLegion
+
+export const EstadoLegion: typeof $Enums.EstadoLegion
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -5039,7 +5057,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion: number | null
     _count: ProvinciaCountAggregateOutputType | null
     _avg: ProvinciaAvgAggregateOutputType | null
     _sum: ProvinciaSumAggregateOutputType | null
@@ -5126,7 +5144,7 @@ export namespace Prisma {
       prosperidadEconomica: number
       impuestos: number
       conflictosInternos: number
-      riesgoRebelion: number
+      riesgoRebelion: number | null
     }, ExtArgs["result"]["provincia"]>
     composites: {}
   }
@@ -6047,7 +6065,7 @@ export namespace Prisma {
     numeroSoldados: number | null
     experiencia: number | null
     moral: number | null
-    estado: string | null
+    estado: $Enums.EstadoLegion | null
     provinciaId: number | null
   }
 
@@ -6057,7 +6075,7 @@ export namespace Prisma {
     numeroSoldados: number | null
     experiencia: number | null
     moral: number | null
-    estado: string | null
+    estado: $Enums.EstadoLegion | null
     provinciaId: number | null
   }
 
@@ -6212,7 +6230,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado: $Enums.EstadoLegion
     provinciaId: number | null
     _count: LegionCountAggregateOutputType | null
     _avg: LegionAvgAggregateOutputType | null
@@ -6300,7 +6318,7 @@ export namespace Prisma {
       numeroSoldados: number
       experiencia: number
       moral: number
-      estado: string
+      estado: $Enums.EstadoLegion
       provinciaId: number | null
     }, ExtArgs["result"]["legion"]>
     composites: {}
@@ -6731,7 +6749,7 @@ export namespace Prisma {
     readonly numeroSoldados: FieldRef<"Legion", 'Int'>
     readonly experiencia: FieldRef<"Legion", 'Int'>
     readonly moral: FieldRef<"Legion", 'Int'>
-    readonly estado: FieldRef<"Legion", 'String'>
+    readonly estado: FieldRef<"Legion", 'EstadoLegion'>
     readonly provinciaId: FieldRef<"Legion", 'Int'>
   }
     
@@ -10578,6 +10596,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'EstadoLegion'
+   */
+  export type EnumEstadoLegionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoLegion'>
+    
+
+
+  /**
+   * Reference to a field of type 'EstadoLegion[]'
+   */
+  export type ListEnumEstadoLegionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EstadoLegion[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -10758,7 +10790,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFilter<"Provincia"> | number
     impuestos?: IntFilter<"Provincia"> | number
     conflictosInternos?: IntFilter<"Provincia"> | number
-    riesgoRebelion?: IntFilter<"Provincia"> | number
+    riesgoRebelion?: IntNullableFilter<"Provincia"> | number | null
     legiones?: LegionListRelationFilter
     gobernador?: XOR<GobernadorNullableScalarRelationFilter, GobernadorWhereInput> | null
   }
@@ -10770,7 +10802,7 @@ export namespace Prisma {
     prosperidadEconomica?: SortOrder
     impuestos?: SortOrder
     conflictosInternos?: SortOrder
-    riesgoRebelion?: SortOrder
+    riesgoRebelion?: SortOrderInput | SortOrder
     legiones?: LegionOrderByRelationAggregateInput
     gobernador?: GobernadorOrderByWithRelationInput
   }
@@ -10785,7 +10817,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFilter<"Provincia"> | number
     impuestos?: IntFilter<"Provincia"> | number
     conflictosInternos?: IntFilter<"Provincia"> | number
-    riesgoRebelion?: IntFilter<"Provincia"> | number
+    riesgoRebelion?: IntNullableFilter<"Provincia"> | number | null
     legiones?: LegionListRelationFilter
     gobernador?: XOR<GobernadorNullableScalarRelationFilter, GobernadorWhereInput> | null
   }, "id" | "nombre">
@@ -10797,7 +10829,7 @@ export namespace Prisma {
     prosperidadEconomica?: SortOrder
     impuestos?: SortOrder
     conflictosInternos?: SortOrder
-    riesgoRebelion?: SortOrder
+    riesgoRebelion?: SortOrderInput | SortOrder
     _count?: ProvinciaCountOrderByAggregateInput
     _avg?: ProvinciaAvgOrderByAggregateInput
     _max?: ProvinciaMaxOrderByAggregateInput
@@ -10815,7 +10847,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntWithAggregatesFilter<"Provincia"> | number
     impuestos?: IntWithAggregatesFilter<"Provincia"> | number
     conflictosInternos?: IntWithAggregatesFilter<"Provincia"> | number
-    riesgoRebelion?: IntWithAggregatesFilter<"Provincia"> | number
+    riesgoRebelion?: IntNullableWithAggregatesFilter<"Provincia"> | number | null
   }
 
   export type LegionWhereInput = {
@@ -10827,7 +10859,7 @@ export namespace Prisma {
     numeroSoldados?: IntFilter<"Legion"> | number
     experiencia?: IntFilter<"Legion"> | number
     moral?: IntFilter<"Legion"> | number
-    estado?: StringFilter<"Legion"> | string
+    estado?: EnumEstadoLegionFilter<"Legion"> | $Enums.EstadoLegion
     provinciaId?: IntNullableFilter<"Legion"> | number | null
     provincia?: XOR<ProvinciaNullableScalarRelationFilter, ProvinciaWhereInput> | null
   }
@@ -10852,7 +10884,7 @@ export namespace Prisma {
     numeroSoldados?: IntFilter<"Legion"> | number
     experiencia?: IntFilter<"Legion"> | number
     moral?: IntFilter<"Legion"> | number
-    estado?: StringFilter<"Legion"> | string
+    estado?: EnumEstadoLegionFilter<"Legion"> | $Enums.EstadoLegion
     provinciaId?: IntNullableFilter<"Legion"> | number | null
     provincia?: XOR<ProvinciaNullableScalarRelationFilter, ProvinciaWhereInput> | null
   }, "id" | "nombre">
@@ -10881,7 +10913,7 @@ export namespace Prisma {
     numeroSoldados?: IntWithAggregatesFilter<"Legion"> | number
     experiencia?: IntWithAggregatesFilter<"Legion"> | number
     moral?: IntWithAggregatesFilter<"Legion"> | number
-    estado?: StringWithAggregatesFilter<"Legion"> | string
+    estado?: EnumEstadoLegionWithAggregatesFilter<"Legion"> | $Enums.EstadoLegion
     provinciaId?: IntNullableWithAggregatesFilter<"Legion"> | number | null
   }
 
@@ -11188,7 +11220,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     legiones?: LegionCreateNestedManyWithoutProvinciaInput
     gobernador?: GobernadorCreateNestedOneWithoutProvinciaInput
   }
@@ -11200,7 +11232,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     legiones?: LegionUncheckedCreateNestedManyWithoutProvinciaInput
     gobernador?: GobernadorUncheckedCreateNestedOneWithoutProvinciaInput
   }
@@ -11211,7 +11243,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     legiones?: LegionUpdateManyWithoutProvinciaNestedInput
     gobernador?: GobernadorUpdateOneWithoutProvinciaNestedInput
   }
@@ -11223,7 +11255,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     legiones?: LegionUncheckedUpdateManyWithoutProvinciaNestedInput
     gobernador?: GobernadorUncheckedUpdateOneWithoutProvinciaNestedInput
   }
@@ -11235,7 +11267,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
   }
 
   export type ProvinciaUpdateManyMutationInput = {
@@ -11244,7 +11276,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProvinciaUncheckedUpdateManyInput = {
@@ -11254,7 +11286,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type LegionCreateInput = {
@@ -11262,7 +11294,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
     provincia?: ProvinciaCreateNestedOneWithoutLegionesInput
   }
 
@@ -11272,7 +11304,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
     provinciaId?: number | null
   }
 
@@ -11281,7 +11313,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
     provincia?: ProvinciaUpdateOneWithoutLegionesNestedInput
   }
 
@@ -11291,7 +11323,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
     provinciaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -11301,7 +11333,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
     provinciaId?: number | null
   }
 
@@ -11310,7 +11342,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
   }
 
   export type LegionUncheckedUpdateManyInput = {
@@ -11319,7 +11351,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
     provinciaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -11666,6 +11698,17 @@ export namespace Prisma {
     rolId?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type LegionListRelationFilter = {
     every?: LegionWhereInput
     some?: LegionWhereInput
@@ -11675,6 +11718,11 @@ export namespace Prisma {
   export type GobernadorNullableScalarRelationFilter = {
     is?: GobernadorWhereInput | null
     isNot?: GobernadorWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type LegionOrderByRelationAggregateInput = {
@@ -11729,7 +11777,7 @@ export namespace Prisma {
     riesgoRebelion?: SortOrder
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -11737,17 +11785,24 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumEstadoLegionFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstadoLegion | EnumEstadoLegionFieldRefInput<$PrismaModel>
+    in?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstadoLegionFilter<$PrismaModel> | $Enums.EstadoLegion
   }
 
   export type ProvinciaNullableScalarRelationFilter = {
     is?: ProvinciaWhereInput | null
     isNot?: ProvinciaWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type LegionCountOrderByAggregateInput = {
@@ -11796,20 +11851,14 @@ export namespace Prisma {
     provinciaId?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+  export type EnumEstadoLegionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstadoLegion | EnumEstadoLegionFieldRefInput<$PrismaModel>
+    in?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstadoLegionWithAggregatesFilter<$PrismaModel> | $Enums.EstadoLegion
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEstadoLegionFilter<$PrismaModel>
+    _max?: NestedEnumEstadoLegionFilter<$PrismaModel>
   }
 
   export type GobernadorCountOrderByAggregateInput = {
@@ -12131,6 +12180,14 @@ export namespace Prisma {
     connect?: GobernadorWhereUniqueInput
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type LegionUpdateManyWithoutProvinciaNestedInput = {
     create?: XOR<LegionCreateWithoutProvinciaInput, LegionUncheckedCreateWithoutProvinciaInput> | LegionCreateWithoutProvinciaInput[] | LegionUncheckedCreateWithoutProvinciaInput[]
     connectOrCreate?: LegionCreateOrConnectWithoutProvinciaInput | LegionCreateOrConnectWithoutProvinciaInput[]
@@ -12185,6 +12242,10 @@ export namespace Prisma {
     connect?: ProvinciaWhereUniqueInput
   }
 
+  export type EnumEstadoLegionFieldUpdateOperationsInput = {
+    set?: $Enums.EstadoLegion
+  }
+
   export type ProvinciaUpdateOneWithoutLegionesNestedInput = {
     create?: XOR<ProvinciaCreateWithoutLegionesInput, ProvinciaUncheckedCreateWithoutLegionesInput>
     connectOrCreate?: ProvinciaCreateOrConnectWithoutLegionesInput
@@ -12193,14 +12254,6 @@ export namespace Prisma {
     delete?: ProvinciaWhereInput | boolean
     connect?: ProvinciaWhereUniqueInput
     update?: XOR<XOR<ProvinciaUpdateToOneWithWhereWithoutLegionesInput, ProvinciaUpdateWithoutLegionesInput>, ProvinciaUncheckedUpdateWithoutLegionesInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ProvinciaCreateNestedOneWithoutGobernadorInput = {
@@ -12336,6 +12389,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumEstadoLegionFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstadoLegion | EnumEstadoLegionFieldRefInput<$PrismaModel>
+    in?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstadoLegionFilter<$PrismaModel> | $Enums.EstadoLegion
+  }
+
+  export type NestedEnumEstadoLegionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EstadoLegion | EnumEstadoLegionFieldRefInput<$PrismaModel>
+    in?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EstadoLegion[] | ListEnumEstadoLegionFieldRefInput<$PrismaModel>
+    not?: NestedEnumEstadoLegionWithAggregatesFilter<$PrismaModel> | $Enums.EstadoLegion
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEstadoLegionFilter<$PrismaModel>
+    _max?: NestedEnumEstadoLegionFilter<$PrismaModel>
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -12535,7 +12605,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
   }
 
   export type LegionUncheckedCreateWithoutProvinciaInput = {
@@ -12544,7 +12614,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
   }
 
   export type LegionCreateOrConnectWithoutProvinciaInput = {
@@ -12604,7 +12674,7 @@ export namespace Prisma {
     numeroSoldados?: IntFilter<"Legion"> | number
     experiencia?: IntFilter<"Legion"> | number
     moral?: IntFilter<"Legion"> | number
-    estado?: StringFilter<"Legion"> | string
+    estado?: EnumEstadoLegionFilter<"Legion"> | $Enums.EstadoLegion
     provinciaId?: IntNullableFilter<"Legion"> | number | null
   }
 
@@ -12642,7 +12712,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     gobernador?: GobernadorCreateNestedOneWithoutProvinciaInput
   }
 
@@ -12653,7 +12723,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     gobernador?: GobernadorUncheckedCreateNestedOneWithoutProvinciaInput
   }
 
@@ -12679,7 +12749,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     gobernador?: GobernadorUpdateOneWithoutProvinciaNestedInput
   }
 
@@ -12690,7 +12760,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     gobernador?: GobernadorUncheckedUpdateOneWithoutProvinciaNestedInput
   }
 
@@ -12700,7 +12770,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     legiones?: LegionCreateNestedManyWithoutProvinciaInput
   }
 
@@ -12711,7 +12781,7 @@ export namespace Prisma {
     prosperidadEconomica: number
     impuestos: number
     conflictosInternos: number
-    riesgoRebelion: number
+    riesgoRebelion?: number | null
     legiones?: LegionUncheckedCreateNestedManyWithoutProvinciaInput
   }
 
@@ -12737,7 +12807,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     legiones?: LegionUpdateManyWithoutProvinciaNestedInput
   }
 
@@ -12748,7 +12818,7 @@ export namespace Prisma {
     prosperidadEconomica?: IntFieldUpdateOperationsInput | number
     impuestos?: IntFieldUpdateOperationsInput | number
     conflictosInternos?: IntFieldUpdateOperationsInput | number
-    riesgoRebelion?: IntFieldUpdateOperationsInput | number
+    riesgoRebelion?: NullableIntFieldUpdateOperationsInput | number | null
     legiones?: LegionUncheckedUpdateManyWithoutProvinciaNestedInput
   }
 
@@ -12796,7 +12866,7 @@ export namespace Prisma {
     numeroSoldados: number
     experiencia: number
     moral: number
-    estado: string
+    estado?: $Enums.EstadoLegion
   }
 
   export type LegionUpdateWithoutProvinciaInput = {
@@ -12804,7 +12874,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
   }
 
   export type LegionUncheckedUpdateWithoutProvinciaInput = {
@@ -12813,7 +12883,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
   }
 
   export type LegionUncheckedUpdateManyWithoutProvinciaInput = {
@@ -12822,7 +12892,7 @@ export namespace Prisma {
     numeroSoldados?: IntFieldUpdateOperationsInput | number
     experiencia?: IntFieldUpdateOperationsInput | number
     moral?: IntFieldUpdateOperationsInput | number
-    estado?: StringFieldUpdateOperationsInput | string
+    estado?: EnumEstadoLegionFieldUpdateOperationsInput | $Enums.EstadoLegion
   }
 
 

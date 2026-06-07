@@ -198,7 +198,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.EstadoLegion = exports.$Enums.EstadoLegion = {
+  ACTIVA: 'ACTIVA',
+  CAMPANA: 'CAMPANA',
+  DESCANSO: 'DESCANSO'
+};
 
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',

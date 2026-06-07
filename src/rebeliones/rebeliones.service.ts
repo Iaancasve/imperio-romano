@@ -16,56 +16,71 @@ export class RebelionService {
   async verificarRiesgoRebelion(provinciaId: number) {
     const provincia = await this.prisma.provincia.findUnique({
       where: { id: provinciaId },
-      include: { gobernador: true }
+      include: { gobernador: true, legiones: true }
     });
 
     if (!provincia) throw new Error('Provincia no encontrada');
 
-    // 1. Factores de Riesgo (Negativos)
-    const corrupcion = provincia.gobernador?.nivelCorrupcion ?? 0; // 0-100
-    const conflictos = provincia.conflictosInternos ?? 0; // Escala 1-10
+    const nivelCorrupcion = provincia.gobernador?.nivelCorrupcion ?? 0;
+    const conflictos = provincia.conflictosInternos ?? 0;
 
-    // 2. Factores de Estabilidad (Positivos)
-    const lealtad = provincia.lealtad ?? 50; // 0-100
-    const legiones = provincia.legiones ?? 0; // Cantidad de legiones
+    const legionesDisponibles = provincia.legiones.filter(
+      (l) => l.estado === 'ACTIVA' || l.estado === 'DESCANSO'
+    );
 
-    // Algoritmo Ponderado:
-    // El riesgo base sube con corrupción y conflictos
-    // El riesgo baja con lealtad y presencia militar (legiones)
-    const factorNegativo = (corrupcion * 0.6) + (conflictos * 10);
-    const factorPositivo = (lealtad * 0.4) + (legiones * 15);
+    const numLegiones = legionesDisponibles.length;
+    const lealtad = (provincia as any).lealtad ?? 50;
+    const factorDefensa = (lealtad * 0.3) + (numLegiones * 20);
+    const factorAzar = Math.floor(Math.random() * 16);
+    const riesgo = Math.max(0, Math.min(100, (nivelCorrupcion * 0.8) + (conflictos * 15) - factorDefensa + 40 + factorAzar));
+
     
-    // Cálculo del riesgo final (0 a 100)
-    const riesgo = Math.max(0, Math.min(100, factorNegativo - factorPositivo + 50));
-
-    // Si hay rebelión (ej. riesgo > 60)
     if (riesgo > 60) {
-      // Consecuencias:
-      const bajas = Math.floor(legiones * 0.2); // 20% de bajas
-      const perdidaLealtad = 15;
+      const bajas = numLegiones > 0 ? Math.max(1, Math.floor(numLegiones * 0.3)) : 0;
       
-      const informeRebelion = {
+      await this.prisma.provincia.update({
+        where: { id: provinciaId },
+        data: {
+          lealtad: Math.max(0, lealtad - 20),
+          conflictosInternos: conflictos + 2
+        }
+      });
+
+      if (legionesDisponibles.length > 0) {
+        await this.prisma.legion.update({
+          where: { id: legionesDisponibles[0].id },
+          data: { estado: 'DESCANSO' }
+        });
+      }
+
+      const datosInforme = {
         provincia: provincia.nombre,
-        nivelRiesgo: riesgo,
+        nivelRiesgo: parseFloat(riesgo.toFixed(2)),
         fecha: new Date(),
         gobernador: provincia.gobernador?.nombre ?? 'Sin gobernador',
-        estado: 'Sofocada' // Aquí podrías implementar lógica de azar para ver si se sofoca
+        estado: 'Detectada'
       };
 
-      // Guardar en SQL y Mongo
-      await this.prisma.rebelion.create({ data: informeRebelion });
-      await new this.rebelionModel({ ...informeRebelion, tipoSimulacion: 'Rebelion' }).save();
+      await this.prisma.rebelion.create({ data: datosInforme });
 
-      // Notificar al Senado
+      await new this.rebelionModel({
+        provincia: datosInforme.provincia,
+        nivelRiesgo: datosInforme.nivelRiesgo,
+        fecha: datosInforme.fecha,
+        gobernador: datosInforme.gobernador,
+        estado: datosInforme.estado,
+        tipoSimulacion: 'Rebelion'
+      }).save();
+
       this.websocketsService.notificarSenado({
-        mensaje: "¡REBELIÓN DETECTADA!",
-        detalles: informeRebelion,
-        consecuencias: { bajas, perdidaLealtad }
+        ...datosInforme,
+        bajas,
+        mensaje: "¡La provincia se ha alzado en armas!"
       });
       
-      return { riesgo, rebelion: true, consecuencias: { bajas, perdidaLealtad } };
+      return { ...datosInforme, rebelion: true, bajas };
     }
 
-    return { riesgo, rebelion: false };
+    return { riesgo: parseFloat(riesgo.toFixed(2)), rebelion: false };
   }
 }
