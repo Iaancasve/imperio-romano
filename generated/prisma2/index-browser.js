@@ -167,6 +167,14 @@ exports.Prisma.GobernadorScalarFieldEnum = {
   provinciaId: 'provinciaId'
 };
 
+exports.Prisma.InformeScalarFieldEnum = {
+  id: 'id',
+  provincia: 'provincia',
+  gobernador: 'gobernador',
+  recaudacionFinal: 'recaudacionFinal',
+  fecha: 'fecha'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -189,7 +197,8 @@ exports.Prisma.ModelName = {
   RolAsignado: 'RolAsignado',
   Provincia: 'Provincia',
   Legion: 'Legion',
-  Gobernador: 'Gobernador'
+  Gobernador: 'Gobernador',
+  Informe: 'Informe'
 };
 
 /**

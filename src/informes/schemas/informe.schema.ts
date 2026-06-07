@@ -1,19 +1,22 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
+@Schema({ collection: 'informes' })
 export class Informe extends Document {
   @Prop({ required: true })
-  tipoSimulacion!: string; 
+  provincia!: string;
 
   @Prop({ required: true })
-  provinciaNombre!: string;
+  gobernador!: string; 
 
-  @Prop({ type: Object }) 
-  resultados!: Record<string, any>;
+  @Prop({ required: true })
+  recaudacionFinal!: string;
 
-  @Prop({ default: Date.now })
+  @Prop({ required: true })
   fecha!: Date;
+
+  @Prop({ required: true })
+  tipoSimulacion!: string;
 }
 
 export const InformeSchema = SchemaFactory.createForClass(Informe);

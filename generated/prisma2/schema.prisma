@@ -22,7 +22,7 @@ datasource db {
 model Usuario {
   id         Int    @id @default(autoincrement())
   nombre     String @db.VarChar(50)
-  contrasena String @db.VarChar(50)
+  contrasena String
 
   rolesAsignados RolAsignado[]
 }
@@ -80,4 +80,12 @@ model Gobernador {
 
   provinciaId Int?       @unique
   provincia   Provincia? @relation(fields: [provinciaId], references: [id])
+}
+
+model Informe {
+  id               Int      @id @default(autoincrement())
+  provincia        String
+  gobernador       String
+  recaudacionFinal String
+  fecha            DateTime
 }

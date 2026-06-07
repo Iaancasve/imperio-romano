@@ -43,6 +43,11 @@ export type Legion = $Result.DefaultSelection<Prisma.$LegionPayload>
  * 
  */
 export type Gobernador = $Result.DefaultSelection<Prisma.$GobernadorPayload>
+/**
+ * Model Informe
+ * 
+ */
+export type Informe = $Result.DefaultSelection<Prisma.$InformePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -224,6 +229,16 @@ export class PrismaClient<
     * ```
     */
   get gobernador(): Prisma.GobernadorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.informe`: Exposes CRUD operations for the **Informe** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Informes
+    * const informes = await prisma.informe.findMany()
+    * ```
+    */
+  get informe(): Prisma.InformeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -663,7 +678,8 @@ export namespace Prisma {
     RolAsignado: 'RolAsignado',
     Provincia: 'Provincia',
     Legion: 'Legion',
-    Gobernador: 'Gobernador'
+    Gobernador: 'Gobernador',
+    Informe: 'Informe'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -679,7 +695,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "rol" | "rolAsignado" | "provincia" | "legion" | "gobernador"
+      modelProps: "usuario" | "rol" | "rolAsignado" | "provincia" | "legion" | "gobernador" | "informe"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1127,6 +1143,80 @@ export namespace Prisma {
           }
         }
       }
+      Informe: {
+        payload: Prisma.$InformePayload<ExtArgs>
+        fields: Prisma.InformeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InformeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InformeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          findFirst: {
+            args: Prisma.InformeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InformeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          findMany: {
+            args: Prisma.InformeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>[]
+          }
+          create: {
+            args: Prisma.InformeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          createMany: {
+            args: Prisma.InformeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InformeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>[]
+          }
+          delete: {
+            args: Prisma.InformeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          update: {
+            args: Prisma.InformeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          deleteMany: {
+            args: Prisma.InformeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InformeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InformeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>[]
+          }
+          upsert: {
+            args: Prisma.InformeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InformePayload>
+          }
+          aggregate: {
+            args: Prisma.InformeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInforme>
+          }
+          groupBy: {
+            args: Prisma.InformeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InformeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InformeCountArgs<ExtArgs>
+            result: $Utils.Optional<InformeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1241,6 +1331,7 @@ export namespace Prisma {
     provincia?: ProvinciaOmit
     legion?: LegionOmit
     gobernador?: GobernadorOmit
+    informe?: InformeOmit
   }
 
   /* Types for Logging */
@@ -8152,6 +8243,1040 @@ export namespace Prisma {
 
 
   /**
+   * Model Informe
+   */
+
+  export type AggregateInforme = {
+    _count: InformeCountAggregateOutputType | null
+    _avg: InformeAvgAggregateOutputType | null
+    _sum: InformeSumAggregateOutputType | null
+    _min: InformeMinAggregateOutputType | null
+    _max: InformeMaxAggregateOutputType | null
+  }
+
+  export type InformeAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type InformeSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type InformeMinAggregateOutputType = {
+    id: number | null
+    provincia: string | null
+    gobernador: string | null
+    recaudacionFinal: string | null
+    fecha: Date | null
+  }
+
+  export type InformeMaxAggregateOutputType = {
+    id: number | null
+    provincia: string | null
+    gobernador: string | null
+    recaudacionFinal: string | null
+    fecha: Date | null
+  }
+
+  export type InformeCountAggregateOutputType = {
+    id: number
+    provincia: number
+    gobernador: number
+    recaudacionFinal: number
+    fecha: number
+    _all: number
+  }
+
+
+  export type InformeAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type InformeSumAggregateInputType = {
+    id?: true
+  }
+
+  export type InformeMinAggregateInputType = {
+    id?: true
+    provincia?: true
+    gobernador?: true
+    recaudacionFinal?: true
+    fecha?: true
+  }
+
+  export type InformeMaxAggregateInputType = {
+    id?: true
+    provincia?: true
+    gobernador?: true
+    recaudacionFinal?: true
+    fecha?: true
+  }
+
+  export type InformeCountAggregateInputType = {
+    id?: true
+    provincia?: true
+    gobernador?: true
+    recaudacionFinal?: true
+    fecha?: true
+    _all?: true
+  }
+
+  export type InformeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Informe to aggregate.
+     */
+    where?: InformeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Informes to fetch.
+     */
+    orderBy?: InformeOrderByWithRelationInput | InformeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InformeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Informes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Informes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Informes
+    **/
+    _count?: true | InformeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InformeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InformeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InformeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InformeMaxAggregateInputType
+  }
+
+  export type GetInformeAggregateType<T extends InformeAggregateArgs> = {
+        [P in keyof T & keyof AggregateInforme]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInforme[P]>
+      : GetScalarType<T[P], AggregateInforme[P]>
+  }
+
+
+
+
+  export type InformeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InformeWhereInput
+    orderBy?: InformeOrderByWithAggregationInput | InformeOrderByWithAggregationInput[]
+    by: InformeScalarFieldEnum[] | InformeScalarFieldEnum
+    having?: InformeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InformeCountAggregateInputType | true
+    _avg?: InformeAvgAggregateInputType
+    _sum?: InformeSumAggregateInputType
+    _min?: InformeMinAggregateInputType
+    _max?: InformeMaxAggregateInputType
+  }
+
+  export type InformeGroupByOutputType = {
+    id: number
+    provincia: string
+    gobernador: string
+    recaudacionFinal: string
+    fecha: Date
+    _count: InformeCountAggregateOutputType | null
+    _avg: InformeAvgAggregateOutputType | null
+    _sum: InformeSumAggregateOutputType | null
+    _min: InformeMinAggregateOutputType | null
+    _max: InformeMaxAggregateOutputType | null
+  }
+
+  type GetInformeGroupByPayload<T extends InformeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InformeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InformeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InformeGroupByOutputType[P]>
+            : GetScalarType<T[P], InformeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InformeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    gobernador?: boolean
+    recaudacionFinal?: boolean
+    fecha?: boolean
+  }, ExtArgs["result"]["informe"]>
+
+  export type InformeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    gobernador?: boolean
+    recaudacionFinal?: boolean
+    fecha?: boolean
+  }, ExtArgs["result"]["informe"]>
+
+  export type InformeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    provincia?: boolean
+    gobernador?: boolean
+    recaudacionFinal?: boolean
+    fecha?: boolean
+  }, ExtArgs["result"]["informe"]>
+
+  export type InformeSelectScalar = {
+    id?: boolean
+    provincia?: boolean
+    gobernador?: boolean
+    recaudacionFinal?: boolean
+    fecha?: boolean
+  }
+
+  export type InformeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "provincia" | "gobernador" | "recaudacionFinal" | "fecha", ExtArgs["result"]["informe"]>
+
+  export type $InformePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Informe"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      provincia: string
+      gobernador: string
+      recaudacionFinal: string
+      fecha: Date
+    }, ExtArgs["result"]["informe"]>
+    composites: {}
+  }
+
+  type InformeGetPayload<S extends boolean | null | undefined | InformeDefaultArgs> = $Result.GetResult<Prisma.$InformePayload, S>
+
+  type InformeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InformeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InformeCountAggregateInputType | true
+    }
+
+  export interface InformeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Informe'], meta: { name: 'Informe' } }
+    /**
+     * Find zero or one Informe that matches the filter.
+     * @param {InformeFindUniqueArgs} args - Arguments to find a Informe
+     * @example
+     * // Get one Informe
+     * const informe = await prisma.informe.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InformeFindUniqueArgs>(args: SelectSubset<T, InformeFindUniqueArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Informe that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InformeFindUniqueOrThrowArgs} args - Arguments to find a Informe
+     * @example
+     * // Get one Informe
+     * const informe = await prisma.informe.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InformeFindUniqueOrThrowArgs>(args: SelectSubset<T, InformeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Informe that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeFindFirstArgs} args - Arguments to find a Informe
+     * @example
+     * // Get one Informe
+     * const informe = await prisma.informe.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InformeFindFirstArgs>(args?: SelectSubset<T, InformeFindFirstArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Informe that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeFindFirstOrThrowArgs} args - Arguments to find a Informe
+     * @example
+     * // Get one Informe
+     * const informe = await prisma.informe.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InformeFindFirstOrThrowArgs>(args?: SelectSubset<T, InformeFindFirstOrThrowArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Informes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Informes
+     * const informes = await prisma.informe.findMany()
+     * 
+     * // Get first 10 Informes
+     * const informes = await prisma.informe.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const informeWithIdOnly = await prisma.informe.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InformeFindManyArgs>(args?: SelectSubset<T, InformeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Informe.
+     * @param {InformeCreateArgs} args - Arguments to create a Informe.
+     * @example
+     * // Create one Informe
+     * const Informe = await prisma.informe.create({
+     *   data: {
+     *     // ... data to create a Informe
+     *   }
+     * })
+     * 
+     */
+    create<T extends InformeCreateArgs>(args: SelectSubset<T, InformeCreateArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Informes.
+     * @param {InformeCreateManyArgs} args - Arguments to create many Informes.
+     * @example
+     * // Create many Informes
+     * const informe = await prisma.informe.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InformeCreateManyArgs>(args?: SelectSubset<T, InformeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Informes and returns the data saved in the database.
+     * @param {InformeCreateManyAndReturnArgs} args - Arguments to create many Informes.
+     * @example
+     * // Create many Informes
+     * const informe = await prisma.informe.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Informes and only return the `id`
+     * const informeWithIdOnly = await prisma.informe.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InformeCreateManyAndReturnArgs>(args?: SelectSubset<T, InformeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Informe.
+     * @param {InformeDeleteArgs} args - Arguments to delete one Informe.
+     * @example
+     * // Delete one Informe
+     * const Informe = await prisma.informe.delete({
+     *   where: {
+     *     // ... filter to delete one Informe
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InformeDeleteArgs>(args: SelectSubset<T, InformeDeleteArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Informe.
+     * @param {InformeUpdateArgs} args - Arguments to update one Informe.
+     * @example
+     * // Update one Informe
+     * const informe = await prisma.informe.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InformeUpdateArgs>(args: SelectSubset<T, InformeUpdateArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Informes.
+     * @param {InformeDeleteManyArgs} args - Arguments to filter Informes to delete.
+     * @example
+     * // Delete a few Informes
+     * const { count } = await prisma.informe.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InformeDeleteManyArgs>(args?: SelectSubset<T, InformeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Informes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Informes
+     * const informe = await prisma.informe.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InformeUpdateManyArgs>(args: SelectSubset<T, InformeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Informes and returns the data updated in the database.
+     * @param {InformeUpdateManyAndReturnArgs} args - Arguments to update many Informes.
+     * @example
+     * // Update many Informes
+     * const informe = await prisma.informe.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Informes and only return the `id`
+     * const informeWithIdOnly = await prisma.informe.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InformeUpdateManyAndReturnArgs>(args: SelectSubset<T, InformeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Informe.
+     * @param {InformeUpsertArgs} args - Arguments to update or create a Informe.
+     * @example
+     * // Update or create a Informe
+     * const informe = await prisma.informe.upsert({
+     *   create: {
+     *     // ... data to create a Informe
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Informe we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InformeUpsertArgs>(args: SelectSubset<T, InformeUpsertArgs<ExtArgs>>): Prisma__InformeClient<$Result.GetResult<Prisma.$InformePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Informes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeCountArgs} args - Arguments to filter Informes to count.
+     * @example
+     * // Count the number of Informes
+     * const count = await prisma.informe.count({
+     *   where: {
+     *     // ... the filter for the Informes we want to count
+     *   }
+     * })
+    **/
+    count<T extends InformeCountArgs>(
+      args?: Subset<T, InformeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InformeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Informe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InformeAggregateArgs>(args: Subset<T, InformeAggregateArgs>): Prisma.PrismaPromise<GetInformeAggregateType<T>>
+
+    /**
+     * Group by Informe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InformeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InformeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InformeGroupByArgs['orderBy'] }
+        : { orderBy?: InformeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InformeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInformeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Informe model
+   */
+  readonly fields: InformeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Informe.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InformeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Informe model
+   */
+  interface InformeFieldRefs {
+    readonly id: FieldRef<"Informe", 'Int'>
+    readonly provincia: FieldRef<"Informe", 'String'>
+    readonly gobernador: FieldRef<"Informe", 'String'>
+    readonly recaudacionFinal: FieldRef<"Informe", 'String'>
+    readonly fecha: FieldRef<"Informe", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Informe findUnique
+   */
+  export type InformeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter, which Informe to fetch.
+     */
+    where: InformeWhereUniqueInput
+  }
+
+  /**
+   * Informe findUniqueOrThrow
+   */
+  export type InformeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter, which Informe to fetch.
+     */
+    where: InformeWhereUniqueInput
+  }
+
+  /**
+   * Informe findFirst
+   */
+  export type InformeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter, which Informe to fetch.
+     */
+    where?: InformeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Informes to fetch.
+     */
+    orderBy?: InformeOrderByWithRelationInput | InformeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Informes.
+     */
+    cursor?: InformeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Informes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Informes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Informes.
+     */
+    distinct?: InformeScalarFieldEnum | InformeScalarFieldEnum[]
+  }
+
+  /**
+   * Informe findFirstOrThrow
+   */
+  export type InformeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter, which Informe to fetch.
+     */
+    where?: InformeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Informes to fetch.
+     */
+    orderBy?: InformeOrderByWithRelationInput | InformeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Informes.
+     */
+    cursor?: InformeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Informes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Informes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Informes.
+     */
+    distinct?: InformeScalarFieldEnum | InformeScalarFieldEnum[]
+  }
+
+  /**
+   * Informe findMany
+   */
+  export type InformeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter, which Informes to fetch.
+     */
+    where?: InformeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Informes to fetch.
+     */
+    orderBy?: InformeOrderByWithRelationInput | InformeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Informes.
+     */
+    cursor?: InformeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Informes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Informes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Informes.
+     */
+    distinct?: InformeScalarFieldEnum | InformeScalarFieldEnum[]
+  }
+
+  /**
+   * Informe create
+   */
+  export type InformeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Informe.
+     */
+    data: XOR<InformeCreateInput, InformeUncheckedCreateInput>
+  }
+
+  /**
+   * Informe createMany
+   */
+  export type InformeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Informes.
+     */
+    data: InformeCreateManyInput | InformeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Informe createManyAndReturn
+   */
+  export type InformeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Informes.
+     */
+    data: InformeCreateManyInput | InformeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Informe update
+   */
+  export type InformeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Informe.
+     */
+    data: XOR<InformeUpdateInput, InformeUncheckedUpdateInput>
+    /**
+     * Choose, which Informe to update.
+     */
+    where: InformeWhereUniqueInput
+  }
+
+  /**
+   * Informe updateMany
+   */
+  export type InformeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Informes.
+     */
+    data: XOR<InformeUpdateManyMutationInput, InformeUncheckedUpdateManyInput>
+    /**
+     * Filter which Informes to update
+     */
+    where?: InformeWhereInput
+    /**
+     * Limit how many Informes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Informe updateManyAndReturn
+   */
+  export type InformeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * The data used to update Informes.
+     */
+    data: XOR<InformeUpdateManyMutationInput, InformeUncheckedUpdateManyInput>
+    /**
+     * Filter which Informes to update
+     */
+    where?: InformeWhereInput
+    /**
+     * Limit how many Informes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Informe upsert
+   */
+  export type InformeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Informe to update in case it exists.
+     */
+    where: InformeWhereUniqueInput
+    /**
+     * In case the Informe found by the `where` argument doesn't exist, create a new Informe with this data.
+     */
+    create: XOR<InformeCreateInput, InformeUncheckedCreateInput>
+    /**
+     * In case the Informe was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InformeUpdateInput, InformeUncheckedUpdateInput>
+  }
+
+  /**
+   * Informe delete
+   */
+  export type InformeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+    /**
+     * Filter which Informe to delete.
+     */
+    where: InformeWhereUniqueInput
+  }
+
+  /**
+   * Informe deleteMany
+   */
+  export type InformeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Informes to delete
+     */
+    where?: InformeWhereInput
+    /**
+     * Limit how many Informes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Informe without action
+   */
+  export type InformeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Informe
+     */
+    select?: InformeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Informe
+     */
+    omit?: InformeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8230,6 +9355,17 @@ export namespace Prisma {
   export type GobernadorScalarFieldEnum = (typeof GobernadorScalarFieldEnum)[keyof typeof GobernadorScalarFieldEnum]
 
 
+  export const InformeScalarFieldEnum: {
+    id: 'id',
+    provincia: 'provincia',
+    gobernador: 'gobernador',
+    recaudacionFinal: 'recaudacionFinal',
+    fecha: 'fecha'
+  };
+
+  export type InformeScalarFieldEnum = (typeof InformeScalarFieldEnum)[keyof typeof InformeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8284,6 +9420,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -8648,6 +9798,60 @@ export namespace Prisma {
     provinciaId?: IntNullableWithAggregatesFilter<"Gobernador"> | number | null
   }
 
+  export type InformeWhereInput = {
+    AND?: InformeWhereInput | InformeWhereInput[]
+    OR?: InformeWhereInput[]
+    NOT?: InformeWhereInput | InformeWhereInput[]
+    id?: IntFilter<"Informe"> | number
+    provincia?: StringFilter<"Informe"> | string
+    gobernador?: StringFilter<"Informe"> | string
+    recaudacionFinal?: StringFilter<"Informe"> | string
+    fecha?: DateTimeFilter<"Informe"> | Date | string
+  }
+
+  export type InformeOrderByWithRelationInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    gobernador?: SortOrder
+    recaudacionFinal?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type InformeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: InformeWhereInput | InformeWhereInput[]
+    OR?: InformeWhereInput[]
+    NOT?: InformeWhereInput | InformeWhereInput[]
+    provincia?: StringFilter<"Informe"> | string
+    gobernador?: StringFilter<"Informe"> | string
+    recaudacionFinal?: StringFilter<"Informe"> | string
+    fecha?: DateTimeFilter<"Informe"> | Date | string
+  }, "id">
+
+  export type InformeOrderByWithAggregationInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    gobernador?: SortOrder
+    recaudacionFinal?: SortOrder
+    fecha?: SortOrder
+    _count?: InformeCountOrderByAggregateInput
+    _avg?: InformeAvgOrderByAggregateInput
+    _max?: InformeMaxOrderByAggregateInput
+    _min?: InformeMinOrderByAggregateInput
+    _sum?: InformeSumOrderByAggregateInput
+  }
+
+  export type InformeScalarWhereWithAggregatesInput = {
+    AND?: InformeScalarWhereWithAggregatesInput | InformeScalarWhereWithAggregatesInput[]
+    OR?: InformeScalarWhereWithAggregatesInput[]
+    NOT?: InformeScalarWhereWithAggregatesInput | InformeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Informe"> | number
+    provincia?: StringWithAggregatesFilter<"Informe"> | string
+    gobernador?: StringWithAggregatesFilter<"Informe"> | string
+    recaudacionFinal?: StringWithAggregatesFilter<"Informe"> | string
+    fecha?: DateTimeWithAggregatesFilter<"Informe"> | Date | string
+  }
+
   export type UsuarioCreateInput = {
     nombre: string
     contrasena: string
@@ -8970,6 +10174,59 @@ export namespace Prisma {
     nivelCorrupcion?: IntFieldUpdateOperationsInput | number
     tiempoCargo?: IntFieldUpdateOperationsInput | number
     provinciaId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type InformeCreateInput = {
+    provincia: string
+    gobernador: string
+    recaudacionFinal: string
+    fecha: Date | string
+  }
+
+  export type InformeUncheckedCreateInput = {
+    id?: number
+    provincia: string
+    gobernador: string
+    recaudacionFinal: string
+    fecha: Date | string
+  }
+
+  export type InformeUpdateInput = {
+    provincia?: StringFieldUpdateOperationsInput | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    recaudacionFinal?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InformeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provincia?: StringFieldUpdateOperationsInput | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    recaudacionFinal?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InformeCreateManyInput = {
+    id?: number
+    provincia: string
+    gobernador: string
+    recaudacionFinal: string
+    fecha: Date | string
+  }
+
+  export type InformeUpdateManyMutationInput = {
+    provincia?: StringFieldUpdateOperationsInput | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    recaudacionFinal?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InformeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    provincia?: StringFieldUpdateOperationsInput | string
+    gobernador?: StringFieldUpdateOperationsInput | string
+    recaudacionFinal?: StringFieldUpdateOperationsInput | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -9330,6 +10587,63 @@ export namespace Prisma {
     provinciaId?: SortOrder
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type InformeCountOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    gobernador?: SortOrder
+    recaudacionFinal?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type InformeAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type InformeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    gobernador?: SortOrder
+    recaudacionFinal?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type InformeMinOrderByAggregateInput = {
+    id?: SortOrder
+    provincia?: SortOrder
+    gobernador?: SortOrder
+    recaudacionFinal?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type InformeSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type RolAsignadoCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<RolAsignadoCreateWithoutUsuarioInput, RolAsignadoUncheckedCreateWithoutUsuarioInput> | RolAsignadoCreateWithoutUsuarioInput[] | RolAsignadoUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: RolAsignadoCreateOrConnectWithoutUsuarioInput | RolAsignadoCreateOrConnectWithoutUsuarioInput[]
@@ -9568,6 +10882,10 @@ export namespace Prisma {
     update?: XOR<XOR<ProvinciaUpdateToOneWithWhereWithoutGobernadorInput, ProvinciaUpdateWithoutGobernadorInput>, ProvinciaUncheckedUpdateWithoutGobernadorInput>
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -9673,6 +10991,31 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type RolAsignadoCreateWithoutUsuarioInput = {

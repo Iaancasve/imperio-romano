@@ -4,15 +4,15 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
-  moduleFormat    = "cjs"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 generator client2 {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma2"
-  moduleFormat    = "cjs"
+  provider     = "prisma-client-js"
+  output       = "../generated/prisma2"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -22,7 +22,7 @@ datasource db {
 model Usuario {
   id         Int    @id @default(autoincrement())
   nombre     String @db.VarChar(50)
-  contrasena String 
+  contrasena String
 
   rolesAsignados RolAsignado[]
 }
@@ -35,12 +35,12 @@ model Rol {
 }
 
 model RolAsignado {
-  idra        Int     @id @default(autoincrement())
-  usuarioId   Int
-  rolId       Int
+  idra      Int @id @default(autoincrement())
+  usuarioId Int
+  rolId     Int
 
-  usuario     Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
-  rol         Rol     @relation(fields: [rolId], references: [id], onDelete: Cascade)
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  rol     Rol     @relation(fields: [rolId], references: [id], onDelete: Cascade)
 
   @@unique([usuarioId, rolId])
 }
@@ -54,30 +54,38 @@ model Provincia {
   conflictosInternos   Int
   riesgoRebelion       Int
 
-  legiones             Legion[]
-  gobernador           Gobernador?
+  legiones   Legion[]
+  gobernador Gobernador?
 }
 
 model Legion {
-  id               Int    @id @default(autoincrement())
-  nombre           String @unique @db.VarChar(50)
-  numeroSoldados   Int
-  experiencia      Int
-  moral            Int
-  estado           String @db.VarChar(20)
+  id             Int    @id @default(autoincrement())
+  nombre         String @unique @db.VarChar(50)
+  numeroSoldados Int
+  experiencia    Int
+  moral          Int
+  estado         String @db.VarChar(20)
 
-  provinciaId      Int?
-  provincia        Provincia? @relation(fields: [provinciaId], references: [id])
+  provinciaId Int?
+  provincia   Provincia? @relation(fields: [provinciaId], references: [id])
 }
 
 model Gobernador {
-  id                 Int    @id @default(autoincrement())
-  nombre             String @db.VarChar(50)
-  edad               Int
-  nivelCompetencia   Int
-  nivelCorrupcion    Int
-  tiempoCargo        Int
+  id               Int    @id @default(autoincrement())
+  nombre           String @db.VarChar(50)
+  edad             Int
+  nivelCompetencia Int
+  nivelCorrupcion  Int
+  tiempoCargo      Int
 
-  provinciaId        Int?   @unique
-  provincia          Provincia? @relation(fields: [provinciaId], references: [id])
+  provinciaId Int?       @unique
+  provincia   Provincia? @relation(fields: [provinciaId], references: [id])
+}
+
+model Informe {
+  id               Int      @id @default(autoincrement())
+  provincia        String
+  gobernador       String
+  recaudacionFinal String
+  fecha            DateTime
 }
