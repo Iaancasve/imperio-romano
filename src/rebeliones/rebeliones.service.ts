@@ -30,28 +30,30 @@ export class RebelionService {
 
     const numLegiones = legionesDisponibles.length;
     const lealtad = (provincia as any).lealtad ?? 50;
+
     const factorDefensa = (lealtad * 0.3) + (numLegiones * 20);
     const factorAzar = Math.floor(Math.random() * 16);
     const riesgo = Math.max(0, Math.min(100, (nivelCorrupcion * 0.8) + (conflictos * 15) - factorDefensa + 40 + factorAzar));
 
-    
-    if (riesgo > 60) {
-      const bajas = numLegiones > 0 ? Math.max(1, Math.floor(numLegiones * 0.3)) : 0;
-      
-      await this.prisma.provincia.update({
-        where: { id: provinciaId },
-        data: {
-          lealtad: Math.max(0, lealtad - 20),
-          conflictosInternos: conflictos + 2
-        }
-      });
+    if (riesgo > 60 && legionesDisponibles.length > 0) {
+      const legionesDestinadas = legionesDisponibles[0];
+      const bajas = Math.floor(legionesDestinadas.numeroSoldados * 0.3);
+      const nuevosSoldados = Math.max(0, legionesDestinadas.numeroSoldados - bajas);
 
-      if (legionesDisponibles.length > 0) {
-        await this.prisma.legion.update({
-          where: { id: legionesDisponibles[0].id },
-          data: { estado: 'DESCANSO' }
-        });
-      }
+      
+      await this.prisma.$transaction([
+        this.prisma.provincia.update({
+          where: { id: provinciaId },
+          data: {
+            lealtad: Math.max(0, lealtad - 20),
+            conflictosInternos: conflictos + 2
+          }
+        }),
+        this.prisma.legion.update({
+          where: { id: legionesDestinadas.id },
+          data: { numeroSoldados: nuevosSoldados }
+        })
+      ]);
 
       const datosInforme = {
         provincia: provincia.nombre,
@@ -75,7 +77,7 @@ export class RebelionService {
       this.websocketsService.notificarSenado({
         ...datosInforme,
         bajas,
-        mensaje: "¡La provincia se ha alzado en armas!"
+        mensaje: `¡Rebelión! La ${legionesDestinadas.nombre} ha perdido ${bajas} soldados.`
       });
       
       return { ...datosInforme, rebelion: true, bajas };
