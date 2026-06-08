@@ -8,15 +8,23 @@ export const dataService = {
     },
 
     recaudarImpuestos: async (id: number) => {
-        const response = await fetch(`http://localhost:3000/impuestos/calcular/${id}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        return await response.json(); // Esto recibirá el informeData que tu servicio ya retorna
-    },
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:3000/impuestos/calcular/${id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(err); // Simplemente lanza el error, no uses alert
+  }
+  
+  return await response.json();
+},
+
 
     createProvincia: async (data: any) => {
         const mutation = `mutation { 

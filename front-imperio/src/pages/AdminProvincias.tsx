@@ -7,7 +7,7 @@ import { X, Plus, Trash2, Edit2, LogOut, ArrowLeft, Coins } from 'lucide-react';
 export const AdminProvincias = () => {
   const [provincias, setProvincias] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [informe, setInforme] = useState<any>(null); // Estado para el modal de informe
+  const [informe, setInforme] = useState<any>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ 
     nombre: '', lealtad: 0, prosperidadEconomica: 0, 
@@ -52,9 +52,13 @@ export const AdminProvincias = () => {
   };
 
   const handleRecaudar = async (id: number) => {
-    const data = await dataService.recaudarImpuestos(id);
-    setInforme(data); // Abre el modal de informe automáticamente
-    loadProvincias(); // Refresca valores por si cambiaron
+    try {
+      const data = await dataService.recaudarImpuestos(id);
+      setInforme(data);
+      loadProvincias();
+    } catch (error) {
+      console.error("Error al recaudar:", error);
+    }
   };
 
   return (
@@ -108,7 +112,6 @@ export const AdminProvincias = () => {
         </table>
       </div>
 
-      {/* Modal de CRUD */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
           <form onSubmit={handleSave} className="bg-stone-900 p-8 rounded-2xl w-full max-w-lg border border-stone-700">
@@ -116,17 +119,23 @@ export const AdminProvincias = () => {
               <h2 className="text-2xl font-serif">{editingId ? 'Editar Provincia' : 'Nueva Provincia'}</h2>
               <button type="button" onClick={() => setShowModal(false)}><X /></button>
             </div>
-            {/* ... formulario igual que antes ... */}
-            <button className="w-full mt-6 bg-amber-700 hover:bg-amber-600 py-3 rounded-lg font-bold transition">
+            <div className="grid grid-cols-2 gap-4">
+              <input className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700" placeholder="Nombre" value={formData.nombre} onChange={e => setFormData({...formData, nombre: e.target.value})} />
+              <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Lealtad" value={formData.lealtad} onChange={e => setFormData({...formData, lealtad: Number(e.target.value)})} />
+              <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Prosperidad" value={formData.prosperidadEconomica} onChange={e => setFormData({...formData, prosperidadEconomica: Number(e.target.value)})} />
+              <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Impuestos" value={formData.impuestos} onChange={e => setFormData({...formData, impuestos: Number(e.target.value)})} />
+              <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Conflictos" value={formData.conflictosInternos} onChange={e => setFormData({...formData, conflictosInternos: Number(e.target.value)})} />
+              <input type="number" className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700" placeholder="Riesgo Rebelión" value={formData.riesgoRebelion} onChange={e => setFormData({...formData, riesgoRebelion: Number(e.target.value)})} />
+            </div>
+            <button type="submit" className="w-full mt-6 bg-amber-700 hover:bg-amber-600 py-3 rounded-lg font-bold transition">
               {editingId ? 'Guardar Cambios' : 'Confirmar Registro'}
             </button>
           </form>
         </div>
       )}
 
-      {/* Modal de Informe */}
-      {informe && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+      {informe !== null && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999] p-4">
           <div className="bg-stone-900 p-8 rounded-2xl border border-amber-600 max-w-sm w-full shadow-2xl">
             <h2 className="text-xl font-serif text-amber-500 mb-4">Informe de Recaudación</h2>
             <div className="text-stone-300 space-y-2">
