@@ -1,16 +1,22 @@
+type Gobernador {
+  id: ID!
+  nombre: String!
+}
+
 type Provincia {
-  id: Int!
+  id: ID!
   nombre: String!
   lealtad: Int!
   prosperidadEconomica: Int!
   impuestos: Int!
   conflictosInternos: Int!
-  riesgoRebelion: Int!
+  riesgoRebelion: Int
+  gobernador: Gobernador
 }
 
 type Query {
   provincias: [Provincia!]!
-  provincia(id: Int!): Provincia
+  provincia(id: ID!): Provincia
 }
 
 type Mutation {

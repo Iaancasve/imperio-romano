@@ -1,5 +1,6 @@
 import { apiClient } from './cliente';
 
+// front-imperio/src/api/dataService.ts
 export const dataService = {
   getProvincias: async () => {
     const query = `
@@ -7,7 +8,11 @@ export const dataService = {
         provincias {
           id
           nombre
-          tipo
+          lealtad
+          prosperidadEconomica
+          impuestos
+          conflictosInternos
+          riesgoRebelion
           gobernador {
             nombre
           }
