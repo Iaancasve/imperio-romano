@@ -10,20 +10,19 @@ export const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
   try {
-    const data = await apiClient('/auth/login', {
+    const response = await apiClient('/auth/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        nombre: nombre,       // Coincide con body.nombre
-        contrasena: contrasena  // Coincide con body.contrasena
-      }),
+      body: JSON.stringify({ nombre, contrasena: contrasena }),
     });
+
+    // Ahora la respuesta trae { access_token, user }
+    const { access_token, user } = response; 
+
+    // Ya coincide con los 2 argumentos que espera tu AuthContext
+    login(access_token, user); 
     
-    // Si llegamos aquí, es que el backend respondió con el token
-    login(data.access_token);
   } catch (err) {
-    console.error(err);
-    alert('Error al iniciar sesión: Revisa tus credenciales');
+    alert('Credenciales inválidas');
   }
 };
 

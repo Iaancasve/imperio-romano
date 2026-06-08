@@ -1,21 +1,20 @@
-const API_URL = 'http://localhost:3000';
+export const apiClient = async (url: string, options: RequestInit = {}) => {
+  const token = localStorage.getItem('token'); 
 
-export const apiClient = async (endpoint: string, options: RequestInit = {}) => {
-  const token = localStorage.getItem('token');
-  
   const headers = {
     'Content-Type': 'application/json',
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
     ...options.headers,
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}), 
   };
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
+  const response = await fetch(`http://localhost:3000${url}`, {
     ...options,
     headers,
   });
 
   if (!response.ok) {
-    throw new Error(`Error ${response.status}: ${await response.text()}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(`Error ${response.status}: ${JSON.stringify(errorData)}`);
   }
 
   return response.json();

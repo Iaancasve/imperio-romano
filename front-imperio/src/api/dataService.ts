@@ -27,4 +27,12 @@ export const dataService = {
 
     return response.data.provincias;
   },
+
+  recaudarImpuestos: async (provinciaId: number) => {
+  // Debe coincidir con @Post('calcular/:provinciaId')
+  return await apiClient(`/impuestos/calcular/${provinciaId}`, {
+    method: 'POST',
+  });
+    },
 };
+

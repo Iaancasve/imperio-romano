@@ -27,6 +27,13 @@ export class AuthService {
   async login(user: any) {
     const roles = user.rolesAsignados.map(r => r.rol.descripcion);
     const payload = { username: user.nombre, sub: user.id, roles };
-    return { access_token: this.jwtService.sign(payload) };
+    
+    return { 
+      access_token: this.jwtService.sign(payload),
+      user: {
+        id: user.id,
+        role: roles[0] || 'Gobernador' 
+      }
+    };
   }
 }
