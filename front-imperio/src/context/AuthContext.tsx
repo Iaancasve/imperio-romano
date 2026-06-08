@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, type ReactNode } from 'react';
+import { type NavigateFunction } from 'react-router-dom';
 
-// Definimos la estructura del usuario para tenerla tipada
 interface User {
   id: number;
   role: string;
@@ -10,13 +10,12 @@ interface AuthContextType {
   token: string | null;
   user: User | null;
   login: (token: string, user: User) => void;
-  logout: () => void;
+  logout: (navigate: NavigateFunction) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // Inicializamos recuperando el token y el usuario del localStorage
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [user, setUser] = useState<User | null>(() => {
     const savedUser = localStorage.getItem('user');
@@ -30,11 +29,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(newUser);
   };
 
-  const logout = () => {
+  const logout = (navigate: NavigateFunction) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setToken(null);
     setUser(null);
+    navigate('/login');
   };
 
   return (
