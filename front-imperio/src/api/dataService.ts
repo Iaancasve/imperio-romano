@@ -74,31 +74,32 @@ export const dataService = {
         return await response.json();
     },
 
-    createUsuario: async (data: { nombre: string, contrasena: string, role: string }) => {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/usuarios', {
-            method: 'POST',
-            headers: { 
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data) // Enviará nombre, contrasena y role
-        });
-        return await response.json();
-    },
+    createUsuario: async (data: { nombre: string, contrasena: string, rolId: number }) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/usuarios', {
+        method: 'POST',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Esto envía { nombre, contrasena, rolId }
+    });
+    if (!response.ok) throw new Error('Error al crear usuario');
+    return response.json();
+},
 
-    updateUsuario: async (id: number, data: { nombre: string, contrasena?: string, role: string }) => {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/usuarios/${id}`, {
-            method: 'PATCH',
-            headers: { 
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        return await response.json();
-    },
+    updateUsuario: async (id: number, data: { nombre: string, contrasena?: string, rolId: number }) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`http://localhost:3000/usuarios/${id}`, {
+        method: 'PATCH',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviamos rolId, no role
+    });
+    return await response.json();
+},
 
     deleteUsuario: async (id: number) => {
         const token = localStorage.getItem('token');

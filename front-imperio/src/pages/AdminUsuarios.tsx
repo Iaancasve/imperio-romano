@@ -9,7 +9,7 @@ export const AdminUsuarios = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ 
-    nombre: '', contrasena: '', role: 'Gobernador' 
+    nombre: '', contrasena: '', rolId: 1 
   });
 
   const { logout } = useAuth();
@@ -20,15 +20,15 @@ export const AdminUsuarios = () => {
   const loadUsuarios = () => dataService.getUsuarios().then(setUsuarios);
 
   const handleOpenCreate = () => {
-    setFormData({ nombre: '', contrasena: '', role: 'Gobernador' });
+    setFormData({ nombre: '', contrasena: '', rolId: 1 });
     setEditingId(null);
     setShowModal(true);
   };
 
   const handleOpenEdit = (u: any) => {
-    // u.role podría ser un objeto o un string, nos aseguramos de asignar el valor correcto
-    const rolValor = typeof u.role === 'object' ? u.role.descripcion : u.role;
-    setFormData({ nombre: u.nombre, contrasena: '', role: rolValor });
+    // Extraemos el rolId correctamente de la relación
+    const rolId = u.rolesAsignados?.[0]?.rolId || 1;
+    setFormData({ nombre: u.nombre, contrasena: '', rolId: rolId });
     setEditingId(u.id);
     setShowModal(true);
   };
@@ -36,18 +36,28 @@ export const AdminUsuarios = () => {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Lógica segura para no enviar contraseña si está vacía
-    const { contrasena, ...rest } = formData;
-    const dataToSend = contrasena.trim() !== '' ? formData : rest;
+    // Preparar objeto de envío (limpiando contraseña si está vacía en edición)
+    const payload: any = { 
+        nombre: formData.nombre, 
+        rolId: Number(formData.rolId) 
+    };
     
-    if (editingId) {
-      await dataService.updateUsuario(editingId, dataToSend);
-    } else {
-      await dataService.createUsuario(formData);
+    if (formData.contrasena.trim() !== '') {
+        payload.contrasena = formData.contrasena;
     }
     
-    loadUsuarios();
-    setShowModal(false);
+    try {
+        if (editingId) {
+            await dataService.updateUsuario(editingId, payload);
+        } else {
+            await dataService.createUsuario(payload);
+        }
+        loadUsuarios();
+        setShowModal(false);
+    } catch (error) {
+        console.error("Error al guardar:", error);
+        alert("Error al guardar los cambios.");
+    }
   };
 
   const handleDelete = async (id: number) => {
@@ -88,8 +98,7 @@ export const AdminUsuarios = () => {
             {usuarios.map((u) => (
               <tr key={u.id} className="hover:bg-stone-800/30 transition">
                 <td className="p-4 font-bold text-amber-100">{u.nombre}</td>
-                {/* Aquí mostramos la descripción si viene en un objeto, o el string directamente */}
-                <td className="p-4">{u.role?.descripcion || u.role}</td>
+                <td className="p-4">{u.rolesAsignados?.[0]?.rol?.descripcion || 'Sin rol'}</td>
                 <td className="p-4 flex justify-center gap-4">
                   <button onClick={() => handleOpenEdit(u)} className="text-blue-400 hover:text-blue-300"><Edit2 size={18}/></button>
                   <button onClick={() => handleDelete(u.id)} className="text-red-400 hover:text-red-300"><Trash2 size={18}/></button>
@@ -110,9 +119,9 @@ export const AdminUsuarios = () => {
             <div className="space-y-4">
               <input className="w-full p-3 bg-stone-800 rounded border border-stone-700" placeholder="Nombre" value={formData.nombre} onChange={e => setFormData({...formData, nombre: e.target.value})} required />
               <input type="password" className="w-full p-3 bg-stone-800 rounded border border-stone-700" placeholder="Contraseña" value={formData.contrasena} onChange={e => setFormData({...formData, contrasena: e.target.value})} />
-              <select className="w-full p-3 bg-stone-800 rounded border border-stone-700" value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})}>
-                <option value="Gobernador">Gobernador</option>
-                <option value="Senado">Senado</option>
+              <select className="w-full p-3 bg-stone-800 rounded border border-stone-700" value={formData.rolId} onChange={e => setFormData({...formData, rolId: Number(e.target.value)})}>
+                <option value={1}>Senado</option>
+                <option value={2}>Gobernador</option>
               </select>
             </div>
             <button type="submit" className="w-full mt-6 bg-amber-700 hover:bg-amber-600 py-3 rounded-lg font-bold transition">
