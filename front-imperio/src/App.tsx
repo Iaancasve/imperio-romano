@@ -3,6 +3,7 @@ import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard'; 
 import { useAuth } from './context/AuthContext';
 import type { JSX } from 'react/jsx-runtime';
+import { AdminProvincias } from './pages/AdminProvincias';
 
 
 // El componente que ya teníamos
@@ -27,7 +28,7 @@ function App() {
             </PrivateRoute>
           } 
         />
-
+        <Route path="/admin-provincias" element={<AdminProvincias />} />
         <Route path="*" element={<Navigate to={token ? "/dashboard" : "/login"} />} />
       </Routes>
     </Router>

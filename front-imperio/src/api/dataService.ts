@@ -1,38 +1,31 @@
 import { apiClient } from './cliente';
 
-// front-imperio/src/api/dataService.ts
 export const dataService = {
   getProvincias: async () => {
-    const query = `
-      query {
-        provincias {
-          id
-          nombre
-          lealtad
-          prosperidadEconomica
-          impuestos
-          conflictosInternos
-          riesgoRebelion
-          gobernador {
-            nombre
-          }
-        }
-      }
-    `;
-
-    const response = await apiClient('/graphql', {
-      method: 'POST',
-      body: JSON.stringify({ query }),
-    });
-
+    const query = `query { provincias { id nombre lealtad prosperidadEconomica impuestos conflictosInternos riesgoRebelion gobernador { id nombre } } }`;
+    const response = await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query }) });
     return response.data.provincias;
   },
 
   recaudarImpuestos: async (provinciaId: number) => {
-  // Debe coincidir con @Post('calcular/:provinciaId')
-  return await apiClient(`/impuestos/calcular/${provinciaId}`, {
-    method: 'POST',
-  });
-    },
-};
+    return await apiClient(`/impuestos/calcular/${provinciaId}`, { method: 'POST' });
+  },
 
+  createProvincia: async (data: any) => {
+  const mutation = `mutation { 
+    createProvincia(
+      nombre: "${data.nombre}", 
+      lealtad: ${Number(data.lealtad)}, 
+      prosperidadEconomica: ${Number(data.prosperidadEconomica)}, 
+      impuestos: ${Number(data.impuestos)}, 
+      conflictosInternos: ${Number(data.conflictosInternos)}, 
+      riesgoRebelion: ${Number(data.riesgoRebelion)}
+    ) { id } 
+  }`;
+  return await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query: mutation }) });
+},
+  deleteProvincia: async (id: number) => {
+    const mutation = `mutation { removeProvincia(id: ${id}) }`;
+    return await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query: mutation }) });
+  }
+};
