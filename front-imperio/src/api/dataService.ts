@@ -7,8 +7,15 @@ export const dataService = {
         return response.data.provincias;
     },
 
-    recaudarImpuestos: async (provinciaId: number) => {
-        return await apiClient(`/impuestos/calcular/${provinciaId}`, { method: 'POST' });
+    recaudarImpuestos: async (id: number) => {
+        const response = await fetch(`http://localhost:3000/impuestos/calcular/${id}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return await response.json(); // Esto recibirá el informeData que tu servicio ya retorna
     },
 
     createProvincia: async (data: any) => {
@@ -25,8 +32,8 @@ export const dataService = {
         return await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query: mutation }) });
     },
     updateProvincia: async (id: number, data: any) => {
-    // EL ID VA SIN COMILLAS PORQUE ES UN INT
-    const mutation = `mutation { 
+        // EL ID VA SIN COMILLAS PORQUE ES UN INT
+        const mutation = `mutation { 
       updateProvincia(
         id: ${id}, 
         nombre: "${data.nombre}", 
@@ -37,14 +44,14 @@ export const dataService = {
         riesgoRebelion: ${data.riesgoRebelion}
       ) { id } 
     }`;
-    return await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query: mutation }) });
-  },
+        return await apiClient('/graphql', { method: 'POST', body: JSON.stringify({ query: mutation }) });
+    },
 
-  deleteProvincia: async (id: number) => {
-  const mutation = `mutation { removeProvincia(id: ${id}) { id } }`;
-  return await apiClient('/graphql', {
-    method: 'POST',
-    body: JSON.stringify({ query: mutation }),
-  });
-},
+    deleteProvincia: async (id: number) => {
+        const mutation = `mutation { removeProvincia(id: ${id}) { id } }`;
+        return await apiClient('/graphql', {
+            method: 'POST',
+            body: JSON.stringify({ query: mutation }),
+        });
+    },
 };
