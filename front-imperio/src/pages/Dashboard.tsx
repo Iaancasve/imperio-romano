@@ -31,11 +31,26 @@ export const Dashboard = () => {
                 <h1 className="text-4xl font-serif text-stone-100 uppercase">Panel de Control Imperial</h1>
                 <div className="flex gap-4">
                     {user?.role === 'Senado' && (
-                        <button onClick={() => navigate('/admin-provincias')} className="bg-amber-800 hover:bg-amber-700 text-white px-6 py-2 rounded transition font-serif">
-                            Gestionar Provincias
-                        </button>
+                        <>
+                            <button
+                                onClick={() => navigate('/admin-provincias')}
+                                className="bg-amber-800 hover:bg-amber-700 text-white px-6 py-2 rounded transition font-serif"
+                            >
+                                Gestionar Provincias
+                            </button>
+                            <button
+                                onClick={() => navigate('/admin-usuarios')} // Nueva ruta
+                                className="bg-stone-700 hover:bg-stone-600 text-white px-6 py-2 rounded transition font-serif"
+                            >
+                                Gestionar Usuarios
+                            </button>
+                        </>
                     )}
-                    <button onClick={() => logout(navigate)} className="bg-red-900 hover:bg-red-800 text-white px-4 py-2 rounded transition">
+
+                    <button
+                        onClick={() => logout(navigate)}
+                        className="bg-red-900 hover:bg-red-800 text-white px-4 py-2 rounded transition"
+                    >
                         Cerrar Sesión
                     </button>
                 </div>
