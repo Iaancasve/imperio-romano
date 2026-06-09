@@ -8,7 +8,7 @@ import { JwtAuthGuard } from '../auth/jwt.strategy/jwt-auth.guard';
 export class RebelionesController {
   constructor(private readonly rebelionService: RebelionService) {}
 
-  @Post('verificar/:provinciaId')
+  @Post('simular/:provinciaId')
   async verificarRiesgo(@Param('provinciaId', ParseIntPipe) provinciaId: number) {
     return await this.rebelionService.verificarRiesgoRebelion(provinciaId);
   }

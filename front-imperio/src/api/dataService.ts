@@ -107,5 +107,17 @@ export const dataService = {
             method: 'DELETE', 
             headers: { 'Authorization': `Bearer ${token}` } 
         });
-    }
+    },
+    
+    simularRebelion: async (id: number) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`http://localhost:3000/rebeliones/simular/${id}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    return response.json(); // Esto devolverá el informe de la rebelión
+},
 };
