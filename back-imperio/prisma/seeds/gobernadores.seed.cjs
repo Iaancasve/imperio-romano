@@ -7,6 +7,7 @@ async function seedGobernadores(prisma) {
      data: [
        { nombre: 'Lucio Anneo Séneca', edad: 45, nivelCompetencia: 9, nivelCorrupcion: 2, tiempoCargo: 5, provinciaId: hispania?.id },
        { nombre: 'Cayo Julio Vindex', edad: 52, nivelCompetencia: 7, nivelCorrupcion: 6, tiempoCargo: 3, provinciaId: galia?.id },
+       { nombre: 'Napoleon Bonaparte', edad: 29, nivelCompetencia: 9, nivelCorrupcion: 1, tiempoCargo: 1, provinciaId: null },
      ],
      skipDuplicates: true,
    });

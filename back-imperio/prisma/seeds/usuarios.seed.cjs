@@ -12,7 +12,7 @@ async function seedUsuarios(prisma) {
     admin = await prisma.usuario.create({
       data: {
         nombre: 'Julio Cesar',
-        contrasena: passwordHash, 
+        contrasena: passwordHash, // senado123
       }
     });
   }
