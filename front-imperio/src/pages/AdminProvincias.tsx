@@ -120,7 +120,7 @@ export const AdminProvincias = () => {
               <button type="button" onClick={() => setShowModal(false)}><X /></button>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <input className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700" placeholder="Nombre" value={formData.nombre} onChange={e => setFormData({...formData, nombre: e.target.value})} />
+              <input required className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700" placeholder="Nombre" value={formData.nombre} onChange={e => setFormData({...formData, nombre: e.target.value})} />
               <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Lealtad" value={formData.lealtad} onChange={e => setFormData({...formData, lealtad: Number(e.target.value)})} />
               <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Prosperidad" value={formData.prosperidadEconomica} onChange={e => setFormData({...formData, prosperidadEconomica: Number(e.target.value)})} />
               <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Impuestos" value={formData.impuestos} onChange={e => setFormData({...formData, impuestos: Number(e.target.value)})} />
