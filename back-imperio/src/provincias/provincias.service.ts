@@ -3,22 +3,48 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ProvinciasService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   findAll() {
-    return this.prisma.provincia.findMany();
+    return this.prisma.provincia.findMany({
+      include: { gobernador: true }
+    });
+  }
+  findOne(id: number) {
+    return this.prisma.provincia.findUnique({
+      where: { id },
+      include: { gobernador: true }
+    });
   }
 
-  findOne(id: number) {
-    return this.prisma.provincia.findUnique({ where: { id } });
+  findGobernadoresLibres() {
+    return this.prisma.gobernador.findMany({
+      where: { provinciaId: null }
+    });
   }
 
   create(data: any) {
-    return this.prisma.provincia.create({ data });
+    const { gobernadorId, ...rest } = data;
+    return this.prisma.provincia.create({
+      data: {
+        ...rest,
+        gobernador: gobernadorId ? { connect: { id: gobernadorId } } : undefined
+      }
+    });
   }
 
   update(id: number, data: any) {
-    return this.prisma.provincia.update({ where: { id }, data });
+    const { gobernadorId, ...rest } = data;
+
+    return this.prisma.provincia.update({
+      where: { id },
+      data: {
+        ...rest,
+        gobernador: gobernadorId
+          ? { connect: { id: gobernadorId } }
+          : { disconnect: true }
+      }
+    });
   }
 
   remove(id: number) {

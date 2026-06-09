@@ -1,10 +1,5 @@
-type Gobernador {
-  id: ID!
-  nombre: String!
-}
-
 type Provincia {
-  id: ID!
+  id: Int!
   nombre: String!
   lealtad: Int!
   prosperidadEconomica: Int!
@@ -14,13 +9,44 @@ type Provincia {
   gobernador: Gobernador
 }
 
+type Gobernador {
+  id: Int!
+  nombre: String!
+  edad: Int!
+  nivelCompetencia: Int!
+  nivelCorrupcion: Int!
+  tiempoCargo: Int!
+  provinciaId: Int
+}
+
 type Query {
-  provincias: [Provincia!]!
-  provincia(id: ID!): Provincia
+  provincias: [Provincia]
+  provincia(id: Int!): Provincia
+  gobernadoresLibres: [Gobernador] # <--- ESTA LÍNEA DEBE ESTAR AQUÍ
+}
+
+input CreateProvinciaInput {
+  nombre: String!
+  lealtad: Int!
+  prosperidadEconomica: Int!
+  impuestos: Int!
+  conflictosInternos: Int!
+  riesgoRebelion: Int
+  gobernadorId: Int
+}
+
+input UpdateProvinciaInput {
+  nombre: String
+  lealtad: Int
+  prosperidadEconomica: Int
+  impuestos: Int
+  conflictosInternos: Int
+  riesgoRebelion: Int
+  gobernadorId: Int
 }
 
 type Mutation {
-  createProvincia(nombre: String!, lealtad: Int!, prosperidadEconomica: Int!, impuestos: Int!, conflictosInternos: Int!, riesgoRebelion: Int!): Provincia!
-  updateProvincia(id: Int!, nombre: String, lealtad: Int, prosperidadEconomica: Int, impuestos: Int, conflictosInternos: Int, riesgoRebelion: Int): Provincia!
-  removeProvincia(id: Int!): Provincia!
+  createProvincia(input: CreateProvinciaInput!): Provincia
+  updateProvincia(id: Int!, input: UpdateProvinciaInput!): Provincia
+  removeProvincia(id: Int!): Boolean
 }

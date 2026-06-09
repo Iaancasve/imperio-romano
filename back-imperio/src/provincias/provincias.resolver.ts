@@ -23,25 +23,23 @@ export class ProvinciasResolver {
     return this.provinciasService.findOne(id);
   }
 
-  @ResolveField('gobernador')
-  async getGobernador(@Parent() provincia: any) {
-    return this.prisma.gobernador.findFirst({
-      where: { provinciaId: provincia.id },
-    });
+  @Query('gobernadoresLibres')
+  async getGobernadoresLibres() {
+    return this.provinciasService.findGobernadoresLibres();
   }
 
   @Mutation('createProvincia')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('Senado')
-  create(@Args() args: any) {
-    return this.provinciasService.create(args);
+  create(@Args('input') input: any) { 
+    return this.provinciasService.create(input);
   }
 
   @Mutation('updateProvincia')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('Senado')
-  update(@Args('id') id: number, @Args() args: any) {
-    return this.provinciasService.update(id, args);
+  update(@Args('id') id: number, @Args('input') input: any) {
+    return this.provinciasService.update(id, input);
   }
 
   @Mutation('removeProvincia')

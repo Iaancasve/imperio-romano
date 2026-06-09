@@ -6,48 +6,77 @@ import { X, Plus, Trash2, Edit2, LogOut, ArrowLeft, Coins } from 'lucide-react';
 
 export const AdminProvincias = () => {
   const [provincias, setProvincias] = useState<any[]>([]);
+  const [gobernadoresLibres, setGobernadoresLibres] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [informe, setInforme] = useState<any>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ 
+  const [formData, setFormData] = useState<any>({ 
     nombre: '', lealtad: 0, prosperidadEconomica: 0, 
-    impuestos: 0, conflictosInternos: 0, riesgoRebelion: 0 
+    impuestos: 0, conflictosInternos: 0, riesgoRebelion: 0,
+    gobernadorId: null
   });
 
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => { loadProvincias(); }, []);
+  useEffect(() => { 
+    loadProvincias(); 
+    loadGobernadoresLibres(); 
+  }, []);
 
   const loadProvincias = () => dataService.getProvincias().then(setProvincias);
+  
+  const loadGobernadoresLibres = async () => {
+    const data = await dataService.getGobernadoresLibres();
+    setGobernadoresLibres(data);
+  };
 
   const handleOpenCreate = () => {
-    setFormData({ nombre: '', lealtad: 0, prosperidadEconomica: 0, impuestos: 0, conflictosInternos: 0, riesgoRebelion: 0 });
+    setFormData({ nombre: '', lealtad: 0, prosperidadEconomica: 0, impuestos: 0, conflictosInternos: 0, riesgoRebelion: 0, gobernadorId: null });
     setEditingId(null);
     setShowModal(true);
   };
 
   const handleOpenEdit = (p: any) => {
-    setFormData(p);
+    // Si la provincia tiene gobernador, asegúrate de que esté en la lista para poder seleccionarlo
+    if (p.gobernador) {
+        setGobernadoresLibres(prev => {
+            if (!prev.find(g => g.id === p.gobernador.id)) return [...prev, p.gobernador];
+            return prev;
+        });
+    }
+    setFormData({
+      ...p,
+      gobernadorId: p.gobernador ? p.gobernador.id : null
+    });
     setEditingId(p.id);
     setShowModal(true);
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      await dataService.updateProvincia(editingId, formData);
-    } else {
-      await dataService.createProvincia(formData);
+    // Limpiamos los datos para no enviar ID ni objetos relacionados
+    const { id, gobernador, ...dataToSend } = formData;
+    
+    try {
+      if (editingId) {
+        await dataService.updateProvincia(editingId, dataToSend);
+      } else {
+        await dataService.createProvincia(dataToSend);
+      }
+      loadProvincias();
+      loadGobernadoresLibres();
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error al guardar:", error);
     }
-    loadProvincias();
-    setShowModal(false);
   };
 
   const handleDelete = async (id: number) => {
     if (confirm('¿Eliminar esta provincia?')) {
       await dataService.deleteProvincia(id);
       loadProvincias();
+      loadGobernadoresLibres();
     }
   };
 
@@ -84,10 +113,10 @@ export const AdminProvincias = () => {
           <thead className="bg-stone-800 uppercase text-xs text-stone-400">
             <tr>
               <th className="p-4">Nombre</th>
+              <th className="p-4">Gobernador</th>
               <th className="p-4">Lealtad</th>
               <th className="p-4">Prosperidad</th>
               <th className="p-4">Impuestos</th>
-              <th className="p-4">Conflictos</th>
               <th className="p-4">Riesgo</th>
               <th className="p-4 text-center">Acciones</th>
             </tr>
@@ -96,6 +125,7 @@ export const AdminProvincias = () => {
             {provincias.map((p) => (
               <tr key={p.id} className="hover:bg-stone-800/30 transition">
                 <td className="p-4 font-bold text-amber-100">{p.nombre}</td>
+                <td className="p-4 text-stone-400">{p.gobernador ? p.gobernador.nombre : 'Sin asignar'}</td>
                 <td className="p-4">{p.lealtad}%</td>
                 <td className="p-4">{p.prosperidadEconomica}</td>
                 <td className="p-4">{p.impuestos}</td>
@@ -126,31 +156,22 @@ export const AdminProvincias = () => {
               <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Impuestos" value={formData.impuestos} onChange={e => setFormData({...formData, impuestos: Number(e.target.value)})} />
               <input type="number" className="p-3 bg-stone-800 rounded border border-stone-700" placeholder="Conflictos" value={formData.conflictosInternos} onChange={e => setFormData({...formData, conflictosInternos: Number(e.target.value)})} />
               <input type="number" className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700" placeholder="Riesgo Rebelión" value={formData.riesgoRebelion} onChange={e => setFormData({...formData, riesgoRebelion: Number(e.target.value)})} />
+              
+              <select 
+                className="col-span-2 p-3 bg-stone-800 rounded border border-stone-700 text-stone-200"
+                value={formData.gobernadorId || ''} 
+                onChange={e => setFormData({...formData, gobernadorId: e.target.value ? Number(e.target.value) : null})}
+              >
+                <option value="">Sin gobernador asignado</option>
+                {gobernadoresLibres.map(g => (
+                  <option key={g.id} value={g.id}>{g.nombre}</option>
+                ))}
+              </select>
             </div>
             <button type="submit" className="w-full mt-6 bg-amber-700 hover:bg-amber-600 py-3 rounded-lg font-bold transition">
               {editingId ? 'Guardar Cambios' : 'Confirmar Registro'}
             </button>
           </form>
-        </div>
-      )}
-
-      {informe !== null && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999] p-4">
-          <div className="bg-stone-900 p-8 rounded-2xl border border-amber-600 max-w-sm w-full shadow-2xl">
-            <h2 className="text-xl font-serif text-amber-500 mb-4">Informe de Recaudación</h2>
-            <div className="text-stone-300 space-y-2">
-              <p>Provincia: <span className="text-white font-bold">{informe.provincia}</span></p>
-              <p>Gobernador: <span className="text-white font-bold">{informe.gobernador}</span></p>
-              <p className="text-green-400 font-bold">Total: {informe.recaudacionFinal}</p>
-              <p className="text-xs text-stone-500">Fecha: {new Date(informe.fecha).toLocaleString()}</p>
-            </div>
-            <button 
-              onClick={() => setInforme(null)} 
-              className="w-full mt-6 bg-amber-800 py-2 rounded text-white hover:bg-amber-700 transition"
-            >
-              Aceptar
-            </button>
-          </div>
         </div>
       )}
     </div>

@@ -10,7 +10,7 @@ export class RebelionService {
   constructor(
     private prisma: PrismaService,
     @InjectModel(Rebelion.name) private rebelionModel: Model<Rebelion>,
-    private readonly websocketsGateway: WebsocketsGateway// Inyectamos el Gateway
+    private readonly websocketsGateway: WebsocketsGateway
   ) {}
 
   async verificarRiesgoRebelion(provinciaId: number) {

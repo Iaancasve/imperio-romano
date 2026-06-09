@@ -102,5 +102,5 @@ model Rebelion {
   nivelRiesgo      Float    
   fecha            DateTime @default(now())
   gobernador       String
-  estado           String   // "Detectada" "Sofocada" "En curso"
+  estado           String   
 }
