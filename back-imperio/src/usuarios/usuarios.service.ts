@@ -74,7 +74,7 @@ export class UsuariosService {
         }
     }
     
-    // Método adicional para autenticación que devuelve el usuario con roles asignados
+    
     async findOneByNombreForAuth(nombre: string) {
         return await this.prisma.usuario.findFirst({ 
         where: { nombre }, 

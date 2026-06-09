@@ -8,7 +8,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class InformesService {
   constructor(
     private prisma: PrismaService,
-    @InjectModel(Informe.name) private informeModel: Model<Informe> // MongoDB
+    @InjectModel(Informe.name) private informeModel: Model<Informe> 
   ) {}
 
   async guardarInforme(data: any) {

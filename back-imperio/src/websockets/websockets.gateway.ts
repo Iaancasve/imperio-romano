@@ -13,5 +13,9 @@ export class WebsocketsGateway implements OnGatewayConnection, OnGatewayDisconne
   handleDisconnect(client: Socket) {
     console.log(`Cliente desconectado: ${client.id}`);
   }
-  
+
+ 
+  sendToAll(event: string, data: any) {
+    this.server.emit(event, data);
+  }
 }

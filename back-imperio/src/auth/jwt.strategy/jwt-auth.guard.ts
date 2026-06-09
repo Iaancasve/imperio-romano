@@ -5,13 +5,13 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   
-  // 1. Obtener el contexto de GraphQL correctamente
+  
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
     return ctx.getContext().req;
   }
 
-  // 2. Sobrescribir handleRequest para que no intente usar logIn (sesiones)
+  
   handleRequest(err, user, info, context: ExecutionContext) {
     if (err || !user) {
       throw err || new UnauthorizedException('No autorizado');

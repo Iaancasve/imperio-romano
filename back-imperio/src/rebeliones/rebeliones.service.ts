@@ -3,14 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Rebelion } from './schemas/rebelion.schema';
-import { WebsocketsService } from '../websockets/websockets.service';
+import { WebsocketsGateway } from '../websockets/websockets.gateway'; 
 
 @Injectable()
 export class RebelionService {
   constructor(
     private prisma: PrismaService,
     @InjectModel(Rebelion.name) private rebelionModel: Model<Rebelion>,
-    private readonly websocketsService: WebsocketsService
+    private readonly websocketsGateway: WebsocketsGateway// Inyectamos el Gateway
   ) {}
 
   async verificarRiesgoRebelion(provinciaId: number) {
@@ -35,12 +35,21 @@ export class RebelionService {
     const factorAzar = Math.floor(Math.random() * 16);
     const riesgo = Math.max(0, Math.min(100, (nivelCorrupcion * 0.8) + (conflictos * 15) - factorDefensa + 40 + factorAzar));
 
+    const datosInforme = {
+        provincia: provincia.nombre,
+        nivelRiesgo: parseFloat(riesgo.toFixed(2)),
+        fecha: new Date(),
+        gobernador: provincia.gobernador?.nombre ?? 'Sin gobernador',
+        estado: 'Detectada',
+        rebelion: false,
+        bajas: 0
+    };
+
     if (riesgo > 60 && legionesDisponibles.length > 0) {
       const legionesDestinadas = legionesDisponibles[0];
       const bajas = Math.floor(legionesDestinadas.numeroSoldados * 0.3);
       const nuevosSoldados = Math.max(0, legionesDestinadas.numeroSoldados - bajas);
 
-      
       await this.prisma.$transaction([
         this.prisma.provincia.update({
           where: { id: provinciaId },
@@ -55,15 +64,18 @@ export class RebelionService {
         })
       ]);
 
-      const datosInforme = {
-        provincia: provincia.nombre,
-        nivelRiesgo: parseFloat(riesgo.toFixed(2)),
-        fecha: new Date(),
-        gobernador: provincia.gobernador?.nombre ?? 'Sin gobernador',
-        estado: 'Detectada'
-      };
+      datosInforme.rebelion = true;
+      datosInforme.bajas = bajas;
 
-      await this.prisma.rebelion.create({ data: datosInforme });
+      await this.prisma.rebelion.create({ 
+          data: { 
+              provincia: provincia.nombre,
+              nivelRiesgo: datosInforme.nivelRiesgo,
+              fecha: datosInforme.fecha,
+              gobernador: datosInforme.gobernador,
+              estado: datosInforme.estado
+          } 
+      });
 
       await new this.rebelionModel({
         provincia: datosInforme.provincia,
@@ -73,16 +85,14 @@ export class RebelionService {
         estado: datosInforme.estado,
         tipoSimulacion: 'Rebelion'
       }).save();
-
-      this.websocketsService.notificarSenado({
-        ...datosInforme,
-        bajas,
-        mensaje: `¡Rebelión! La ${legionesDestinadas.nombre} ha perdido ${bajas} soldados.`
-      });
-      
-      return { ...datosInforme, rebelion: true, bajas };
     }
 
-    return { riesgo: parseFloat(riesgo.toFixed(2)), rebelion: false };
+    
+    this.websocketsGateway.sendToAll('notificacion', {
+        tipo: 'rebelion',
+        data: datosInforme
+    });
+    
+    return datosInforme;
   }
 }

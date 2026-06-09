@@ -7,7 +7,7 @@ export class UsuarioEntity {
   @Exclude()
   contrasena!: string;
 
-  // Añade esto exactamente así:
+  
   constructor(partial: Partial<UsuarioEntity>) {
     Object.assign(this, partial);
   }
